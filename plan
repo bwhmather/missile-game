@@ -1,0 +1,62 @@
+
+WAIT_START_LEVEL:
+    show banner
+    onupdate:
+        fill queue with random barriers
+    onclick:
+        -> RUNNING
+
+RUNNING:
+    hide banner
+    set missile state MANUAL
+    increase missile speed
+    onupdate:
+        push start barrier
+        fill barrier queue with random barriers until count = 0
+        when count = 0 add finish barrier and set count to -1
+    onbarrierpassed:
+        if barrier type = finish
+            -> FINISH
+        else if barrier type !=blank or start
+            increase missile speed
+    onbarrierhit:
+        -> CRASHED
+
+FINISHED:
+    set missile to autopilot
+    decrease missile speed
+    show banner
+    onupdate:
+        fill queue with random barriers
+    onclick:
+        ->WAIT_START_LEVEL
+
+CRASHED:
+    show explosion
+    show banner ('game over' if lives = 0 'crashed' otherwise)
+    onclick:
+        hide banner
+        fade out (with callback)
+            set lives
+            reset barriers and missile
+            fade in
+            ->WAIT_START_LEVEL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

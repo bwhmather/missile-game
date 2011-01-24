@@ -1,0 +1,8 @@
+This folder contains Kevin Lindsey's SVG geometry library with the addition of a little bit of slightly gnarly hacking to get elliptical arc support.
+The code for converting from elliptical arcs to cubic beziers comes from the raphael project (again considerably modified).
+Any bugs in the path routines are probably a result of my hastiness and not the fault of the original author.
+
+All modifications are constrained to AbsoluteArcToPathSegment.js and Path.js and should be clearly marked.
+
+
+The library is needed to work around the lack of a working implementation of checkIntersection() in webkit;  at some point it should be possible to use the built in method.
