@@ -46,6 +46,7 @@ MG.game = (function () {
     var mProgress = 0.0;
     var mBestProgress = 0.0;
 
+    var mWooshPlaying = false;
 
     /* Returns a consistent string describing the current level */ 
     function getLevelString() {
@@ -151,6 +152,12 @@ MG.game = (function () {
             MG.tunnelWall.update(dt);
             MG.barrierQueue.update(dt);    
 
+            if (MG.missile.getOffset()/MG.missile.getVelocity() < 0.8 && mWooshPlaying === false && mState !== STATE_CRASHED) {
+                mWooshPlaying = true;
+                var woosh = new Audio("woosh2.mp3");
+                woosh.play();
+            }
+
 
             // check whether the nearest barrier has been reached and whether the
             //        missile collides with it.
@@ -167,6 +174,8 @@ MG.game = (function () {
                         // BARRIER PASSED
                         MG.barrierQueue.popBarrier();
                         MG.missile.onBarrierPassed();
+
+                        mWooshPlaying = false;
 
                         // TODO this block makes loads of assumptions about state
                         if (mState === STATE_RUNNING
@@ -232,6 +241,7 @@ MG.game = (function () {
               default:
                 break;
             }
+
         },
 
         updateDOM: function () {
