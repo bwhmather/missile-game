@@ -46,6 +46,10 @@ MG.game = (function () {
     var mProgress = 0.0;
     var mBestProgress = 0.0;
 
+
+    var NUM_WOOSH_INSTANCES = 3;
+    var mWoosh = [];
+    var mLastWoosh = 0;
     var mWooshPlaying = false;
 
     /* Returns a consistent string describing the current level */ 
@@ -143,7 +147,13 @@ MG.game = (function () {
 
             //
 
-            rootNode.setAttribute('visibility', 'visible');
+            for (var i=0; i<NUM_WOOSH_INSTANCES; i++) {
+                mWoosh[i] = new Audio("woosh2.mp3");
+            }
+
+            //
+
+            rootNode.setAttribute('visibility', 'visible'); 
         },
 
 
@@ -154,8 +164,12 @@ MG.game = (function () {
 
             if (MG.missile.getOffset()/MG.missile.getVelocity() < 0.8 && mWooshPlaying === false && mState !== STATE_CRASHED) {
                 mWooshPlaying = true;
-                var woosh = new Audio("woosh2.mp3");
-                woosh.play();
+//                var woosh = document.getElementById('woosh-sound').cloneNode(true);
+//                woosh.setAttribute('autoplay', 'autoplay');
+                mLastWoosh++;
+                mLastWoosh = mLastWoosh == NUM_WOOSH_INSTANCES ? 0 : mLastWoosh;
+                
+                mWoosh[mLastWoosh].play();
             }
 
 
