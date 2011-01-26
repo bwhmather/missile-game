@@ -60,10 +60,12 @@ MG.game = (function () {
 
     function goWaitStartLevel() {
         // TODO figure out how to access public methods from private functions!
-        MG.banner.show(START_MESSAGE.text(), START_MESSAGE.text());
+        MG.banner.show(START_MESSAGE.title(), START_MESSAGE.text());
 
         MG.missile.setAutopilot();
         MG.missile.setVelocity(400 + 100*mLevel);
+
+        if (mLevel === 0) {mLives = Infinity;};
 
         mState = STATE_WAIT_START;
     }
@@ -153,6 +155,8 @@ MG.game = (function () {
 //            }
 
             //
+
+            goWaitStartLevel();
 
             rootNode.setAttribute('visibility', 'visible'); 
         },
@@ -283,6 +287,11 @@ MG.game = (function () {
                     goRun();
                     break;
                   case STATE_FINISHED:
+                    /* The player is given an infinite number of lives
+                    during the qualifying level but these should be
+                    removed before continuing. */
+                    if (mLevel === 0) {mLives = STARTING_LIVES;};
+
                     mLevel++;
 
                     mBestProgress = 0.0;

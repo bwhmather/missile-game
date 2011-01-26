@@ -10,8 +10,6 @@ function init() {
     MG.game.init();
     MG.hud.init();
 
-    MG.banner.show('QUALIFYING LEVEL', 'CLICK TO START');
-
     MG.unsuspendRedraw();
 
     setInterval(function(){update();}, 1000/60);
