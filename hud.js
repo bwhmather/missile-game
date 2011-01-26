@@ -32,8 +32,8 @@ MG.hud = (function () {
             mSpeedometerSpeedText = document.createTextNode('');
             document.getElementById('hud-speedometer-speed-text').appendChild(mSpeedometerSpeedText);
             
-
-//            mSpeedometerBar;
+            mSpeedometerBar = document.getElementById('hud-speedometer-bar');
+          
 
             // ------------------------------------------------- Level Indicator
             mLevelIndicatorText = document.createTextNode('');
@@ -84,8 +84,11 @@ MG.hud = (function () {
             mRadarMissilePositionDot.setAttribute('cy', String(y));
 
             // ----------------------------------------------------- Speedometer
-            mSpeedometerSpeedText.data = Math.floor(MG.missile.getVelocity());
-            // TODO bar
+            var speed = MG.missile.getVelocity();
+            mSpeedometerSpeedText.data = Math.floor(speed);
+            
+            // TODO work out the maximum speed properly and put a cap on the level with a nice victory screen
+            mSpeedometerBar.setAttribute('x', speed/2000 - 1);
 
             // ------------------------------------------------- Level Indicator
             mLevelIndicatorText.data = MG.game.getLevelString();
