@@ -13,6 +13,7 @@
    onload="setTimeout('init()', 100)"
    width="100%" height="100%" >
   <style>
+
     .barrier path {
       stroke-width: 2;
       stroke-linejoin: round;
@@ -51,8 +52,13 @@
       fill: black;
       fill-opacity: 95%;
     }
-    
+
+    * {cursor:crosshair}
   </style>
+  <style title="style-hide-mouse">
+    * {cursor:none}
+  </style>
+
 
 <!-- Kevin Lindsey's 2d geometry SVG library -->
   <script xlink:href="kevlindev/2D.js" />

@@ -30,20 +30,44 @@ MG.PROJECTION_PLANE_DISTANCE = 100;
 
 
 MG.suspendRedraw = function () {
-  // asv doesn't implement suspendRedraw, so we wrap this in a try-block:
-  try {
-    document.documentElement.suspendRedraw(0);
-  }
-  catch(e) {}
+      // asv doesn't implement suspendRedraw, so we wrap this in a try-block:
+      try {
+            document.documentElement.suspendRedraw(0);
+      }
+      catch(e) {}
 };
 
 
 MG.unsuspendRedraw = function () {
-  try {
-    document.documentElement.suspendRedraw(0);
-  }
-  catch(e) {}
+      try {
+            document.documentElement.suspendRedraw(0);
+      }
+      catch(e) {}
 };
+
+
+MG.hideMouse = function () {
+    var i;
+    for (i=0; i<document.styleSheets.length; i++) {
+        var styleSheet = document.styleSheets[i];
+
+        if (styleSheet.title === 'style-hide-mouse') {
+            styleSheet.disabled = false;
+        }
+    }
+};
+
+MG.showMouse = function () {
+    var i;
+    for (i=0; i<document.styleSheets.length; i++) {
+        var styleSheet = document.styleSheets[i];
+
+        if (styleSheet.title === 'style-hide-mouse') {
+            styleSheet.disabled = true;
+        }
+    }
+};
+
 
 
 MG.getViewportWidth = function () {

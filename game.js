@@ -57,8 +57,8 @@ MG.game = (function () {
 
 
     function goWaitStartLevel() {
-        // TODO figure out how to access public methods from private functions!
         MG.banner.show(START_MESSAGE.title(), START_MESSAGE.text());
+        MG.showMouse();
 
         MG.missile.setAutopilot();
         MG.missile.setVelocity(400 + 100*mLevel);
@@ -70,6 +70,7 @@ MG.game = (function () {
 
     function goRun() {
         MG.banner.hide();
+        MG.hideMouse();
 
         mRemainingBarriers = LEVEL_NUM_BARRIERS;
         mBarriersToPass = LEVEL_NUM_BARRIERS;
@@ -84,6 +85,7 @@ MG.game = (function () {
 
     function goFinish() {
         MG.banner.show(FINISH_MESSAGE.title(), FINISH_MESSAGE.text());
+        MG.showMouse();
 
         MG.missile.setAutopilot();
         MG.missile.setVelocity(300 + 100*mLevel);
@@ -92,6 +94,8 @@ MG.game = (function () {
     }
 
     function goCrash() {
+        MG.showMouse();
+
         if (mLives === 0) {
             MG.banner.show(GAME_OVER_MESSAGE.title(), GAME_OVER_MESSAGE.text());
         } else {
