@@ -1,10 +1,7 @@
-
-
-
-
 MG.game = (function () {
 
-    var STATE_WAIT_START = 'wait_start'
+    /** Constants **/
+    var STATE_WAIT_START = 'wait_start';
     var STATE_STARTING = 'starting';
     var STATE_RUNNING  = 'running';
     var STATE_FINISHED = 'finished';
@@ -14,27 +11,7 @@ MG.game = (function () {
 
     var LEVEL_NUM_BARRIERS = 20;
 
-
-
-    var START_MESSAGE = {
-        title: getLevelString,
-        text: function () {return 'CLICK TO BEGIN'}
-    };
-    var CRASH_MESSAGE = {
-        title: function () {return 'CRASHED'},
-        text:  function () {return 'CLICK TO RETRY'}
-    };
-    var GAME_OVER_MESSAGE = {
-        title: function () {return 'GAME OVER'},
-        text:  function () {return 'CLICK TO START AGAIN'}
-    };
-    var FINISH_MESSAGE = {
-        title: function () {return 'LEVEL COMPLETED'},
-        text: function () {return 'CLICK TO CONTINUE'}
-    };
-
-
-
+    /** Variables **/
     var mState = STATE_WAIT_START;
 
     var mLives = STARTING_LIVES;
@@ -52,10 +29,31 @@ MG.game = (function () {
 //    var mLastWoosh = 0;
 //    var mWooshPlaying = false;
 
+
+
     /* Returns a consistent string describing the current level */ 
     function getLevelString() {
         return mLevel ? 'LEVEL ' + mLevel : 'QUALIFYING LEVEL';
     }
+
+
+    var START_MESSAGE = {
+        title: getLevelString,
+        text: function () {return 'CLICK TO BEGIN';}
+    };
+    var CRASH_MESSAGE = {
+        title: function () {return 'CRASHED';},
+        text:  function () {return 'CLICK TO RETRY';}
+    };
+    var GAME_OVER_MESSAGE = {
+        title: function () {return 'GAME OVER';},
+        text:  function () {return 'CLICK TO START AGAIN';}
+    };
+    var FINISH_MESSAGE = {
+        title: function () {return 'LEVEL COMPLETED';},
+        text: function () {return 'CLICK TO CONTINUE';}
+    };
+
 
 
     function goWaitStartLevel() {
@@ -65,7 +63,7 @@ MG.game = (function () {
         MG.missile.setAutopilot();
         MG.missile.setVelocity(400 + 100*mLevel);
 
-        if (mLevel === 0) {mLives = Infinity;};
+        if (mLevel === 0) {mLives = Infinity;}
 
         mState = STATE_WAIT_START;
     }
@@ -219,7 +217,7 @@ MG.game = (function () {
                                                          + (startVelocity - finishVelocity)
                                                            * (mBarriersToPass - LEVEL_NUM_BARRIERS)
                                                              / LEVEL_NUM_BARRIERS);
-                              break;
+                                break;
                             }
                         }
                     }
@@ -258,6 +256,7 @@ MG.game = (function () {
                 break;
               case STATE_STARTING:
                 mProgress = 0;
+                break;
               default:
                 break;
             }
@@ -290,7 +289,7 @@ MG.game = (function () {
                     /* The player is given an infinite number of lives
                     during the qualifying level but these should be
                     removed before continuing. */
-                    if (mLevel === 0) {mLives = STARTING_LIVES;};
+                    if (mLevel === 0) {mLives = STARTING_LIVES;}
 
                     mLevel++;
 

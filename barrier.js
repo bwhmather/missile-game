@@ -72,13 +72,13 @@ MG.Barrier = function (rootNode, type) {
 
         var intersections = new Intersection.intersectShapes(path, line);
 
-        return intersections.points.length % 2 == 1;
-    }
+        return intersections.points.length % 2 === 1;
+    };
 
 
     this.update = function (dt) {
         mTheta += mDTheta * dt;
-    }
+    };
 
 
     /**
@@ -114,15 +114,15 @@ MG.Barrier = function (rootNode, type) {
         mBackPath.setAttribute('stroke' ,  'rgb('+(0+fog)+'%,'
                                                  +(0+fog)+'%,'
                                                  +(0+fog)+'%)');
-    }
+    };
 
     this.destroy = function () {
         rootNode.parentNode.removeChild(rootNode);
-    }
+    };
 
     this.getType = function () {
         return mType;
     };
 
 
-}
+};

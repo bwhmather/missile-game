@@ -35,7 +35,7 @@ MG.suspendRedraw = function () {
     document.documentElement.suspendRedraw(0);
   }
   catch(e) {}
-}
+};
 
 
 MG.unsuspendRedraw = function () {
@@ -43,16 +43,16 @@ MG.unsuspendRedraw = function () {
     document.documentElement.suspendRedraw(0);
   }
   catch(e) {}
-}
+};
 
 
 MG.getViewportWidth = function () {
   // TODO
   return 100.0;
-}
+};
 
 MG.getViewportHeight = function () {
   // TODO
   return 100.0;
-}
+};
 

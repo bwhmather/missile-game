@@ -1,7 +1,3 @@
-
-
-
-
 MG.banner = (function () {
     var SHOW_TIME = 1.1;
     var HIDE_TIME = 0.8;
@@ -52,6 +48,7 @@ MG.banner = (function () {
                     titleNode.data = title;
                     textNode.data  = text;
                 }
+                // FALLTHROUGH
               case HIDDEN:
                 visibility -= dt/HIDE_TIME;
                 break;

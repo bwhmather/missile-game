@@ -1,6 +1,6 @@
 MG.tunnelWall = (function (rootNode) {
-    DTHETA = 20;
-    NUM_SEGMENTS = 5
+    var DTHETA = 20;
+    var NUM_SEGMENTS = 5;
 
     var NEAR_CLIPPING_PLANE = 25;
 
@@ -10,7 +10,7 @@ MG.tunnelWall = (function (rootNode) {
 
     var mTheta = 0;
 
-    var mSegments = new Array();
+    var mSegments = [];
 
     return {
         init: function (rootNode) {
@@ -25,7 +25,7 @@ MG.tunnelWall = (function (rootNode) {
             gradient.appendChild(gradientStart);
 
             var gradientStop = document.createElementNS(NAMESPACE_SVG, 'stop');
-            gradientStop.setAttribute('offset', (100*NEAR_CLIPPING_PLANE / GRADIENT_STOP) + '%')
+            gradientStop.setAttribute('offset', (100*NEAR_CLIPPING_PLANE / GRADIENT_STOP) + '%');
             gradientStop.setAttribute('stop-color', '#000');
             gradient.appendChild(gradientStop);
 

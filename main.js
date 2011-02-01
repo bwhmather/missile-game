@@ -12,7 +12,7 @@ function init() {
 
     MG.unsuspendRedraw();
 
-    setInterval(function(){update();}, 1000/60);
+    setInterval(update, 1000/60);
 
     document.addEventListener('mousemove', function(evt){
             MG.game.onMouseMove(evt.clientX, evt.clientY);
@@ -50,9 +50,7 @@ function init() {
             + (b.getSeconds() - a.getSeconds())
             + 60*(b.getMinutes() - a.getMinutes())
             + 60*60*(b.getHours() - a.getHours())
-            + 60*60*24*(b.getDay() - a.getDay()))
-
-
+            + 60*60*24*(b.getDay() - a.getDay()));
     }
 }
 
@@ -112,8 +110,7 @@ MG.fog = (function (){
                 }
             }
 
-            rootNode.setAttribute('fill-opacity', (100*(0.5 - 0.5*Math.cos(Math.PI*visibility))) + '%')
+            rootNode.setAttribute('fill-opacity', (100*(0.5 - 0.5*Math.cos(Math.PI*visibility))) + '%');
         }
     };
-
 }());
