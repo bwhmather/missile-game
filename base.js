@@ -40,7 +40,7 @@ MG.suspendRedraw = function () {
 
 MG.unsuspendRedraw = function () {
       try {
-            document.documentElement.suspendRedraw(0);
+            document.documentElement.unsuspendRedraw(0);
       }
       catch(e) {}
 };
