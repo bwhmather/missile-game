@@ -2,80 +2,85 @@ MG.banner = (function () {
     var SHOW_TIME = 1.1;
     var HIDE_TIME = 0.8;
 
-    var HIDDEN = "hidden";
-    var VISIBLE = "visible";
-    var MESSAGE_QUEUED = "message-queued";
+    var BannerState = {
+        HIDDEN: "hidden",
+        VISIBLE: "visible",
+        MESSAGE_QUEUED: "message-queued"
+    };
 
-    var rootNode;
+    var mTitle = "";
+    var mText = "";
 
-    var titleNode;
-    var textNode;
+    var mRootNode;
 
-    var visibility;
+    var mTitleNode;
+    var mTextNode;
 
-    var state;
+    var mVisibility;
+
+    var mState;
 
 
 
     return {
         init: function () {
-            visibility = 0.0;
-            state = HIDDEN;
+            mVisibility = 0.0;
+            mState = BannerState.HIDDEN;
 
-            rootNode = document.getElementById('banner');
+            mRootNode = document.getElementById('banner');
 
             var titleBoxNode = document.getElementById('banner-title');
-            titleNode = document.createTextNode("TEST");
-            titleBoxNode.appendChild(titleNode);
+            mTitleNode = document.createTextNode("");
+            titleBoxNode.appendChild(mTitleNode);
 
             var textBoxNode = document.getElementById('banner-text');
-            textNode = document.createTextNode("TEST 2");
-            textBoxNode.appendChild(textNode);
+            mTextNode = document.createTextNode("");
+            textBoxNode.appendChild(mTextNode);
 
-            rootNode.setAttribute('visibility', 'visible');
+            mRootNode.setAttribute('visibility', 'visible');
 
         },
 
         update: function (dt) {
-            switch (state) {
-              case VISIBLE:
-                visibility += dt/SHOW_TIME;
+            switch (mState) {
+              case BannerState.VISIBLE:
+                mVisibility += dt/SHOW_TIME;
                 break;
-              case MESSAGE_QUEUED:
-                if (visibility === 0) {
-                    state = VISIBLE;
+              case BannerState.MESSAGE_QUEUED:
+                if (mVisibility === 0) {
+                    mState = BannerState.VISIBLE;
 
-                    titleNode.data = title;
-                    textNode.data  = text;
+                    mTitleNode.data = mTitle;
+                    mTextNode.data  = mText;
                 }
                 // FALLTHROUGH
-              case HIDDEN:
-                visibility -= dt/HIDE_TIME;
+              case BannerState.HIDDEN:
+                mVisibility -= dt/HIDE_TIME;
                 break;
             }
-            visibility = Math.max(0,Math.min(1, visibility));
+            mVisibility = Math.max(0,Math.min(1, mVisibility));
         },
 
         updateDOM: function () {
-            rootNode.setAttribute('width', (30 + 80*(0.5 + 0.5*Math.cos(Math.PI*visibility))) + '%');
+            mRootNode.setAttribute('width', (30 + 80*(0.5 + 0.5*Math.cos(Math.PI*mVisibility))) + '%');
         },
 
 
         hide: function () {
-            state = HIDDEN;
+            mState = BannerState.HIDDEN;
 
         },
 
         show: function (newTitle, newText) {
 
-            title = String(newTitle);
-            text = String(newText);
+            mTitle = String(newTitle);
+            mText = String(newText);
 
-            state = MESSAGE_QUEUED;
+            mState = BannerState.MESSAGE_QUEUED;
         },
 
         isFullyVisible: function () {
-            return visibility === 1;
+            return mVisibility === 1;
         }
         
     };

@@ -1,23 +1,23 @@
 MG.barrierQueue = (function () {
-    var barrierQueue = [];
-    var rootNode;
+    var mBarrierQueue = [];
+    var mRootNode;
 
     return {
-        init: function (barrierQueueNode) {
-            rootNode = barrierQueueNode;
+        init: function (rootNode) {
+            mRootNode = rootNode;
         },
 
         update: function (dt) {
             // iterate through and update each of the barrierQueue
-            for (var i=0; i < barrierQueue.length; i++) {
-                barrierQueue[i].update(dt);
+            for (var i=0; i < mBarrierQueue.length; i++) {
+                mBarrierQueue[i].update(dt);
             }
         },
 
         updateDOM: function (missileX, missileY, missileOffset) {
             var z = 0.0;
-            for (var i = 0; i < barrierQueue.length; i++) {
-                barrierQueue[i].updateDOM(missileX, missileY, z + missileOffset);
+            for (var i = 0; i < mBarrierQueue.length; i++) {
+                mBarrierQueue[i].updateDOM(missileX, missileY, z + missileOffset);
                 z += MG.BARRIER_SPACING;
             }
         },
@@ -34,12 +34,12 @@ MG.barrierQueue = (function () {
             var barrier = new MG.Barrier(barrierNode, type);
 
             // add barrier to DOM and to internal list
-            barrierQueue[barrierQueue.length] = barrier;
+            mBarrierQueue[mBarrierQueue.length] = barrier;
 
-            if (rootNode.hasChildNodes()) {
-                rootNode.insertBefore(barrierNode, rootNode.firstChild);
+            if (mRootNode.hasChildNodes()) {
+                mRootNode.insertBefore(barrierNode, mRootNode.firstChild);
             } else {
-                rootNode.appendChild(barrierNode);
+                mRootNode.appendChild(barrierNode);
             }
         },
 
@@ -48,29 +48,38 @@ MG.barrierQueue = (function () {
          * that it relates to the next barrier in the queue.
          */
         popBarrier: function () {
-            var barrier = barrierQueue[0];
+            var barrier = mBarrierQueue[0];
             if (barrier) {
                 barrier.destroy();
-                barrierQueue.shift();
+                mBarrierQueue.shift();
             }
         },
 
+        /**
+         * Returns a reference to the barrier at the front of the queue
+         */
         nextBarrier: function () {
-            return barrierQueue[0];
+            return mBarrierQueue[0];
         },
 
+        /**
+         * Deletes all barriers and returns the queue to it's original, empty state.
+         */
         reset: function () {
             while (!this.isEmpty()){
                 this.popBarrier();
             }
         },
 
+        /**
+         * Returns true if there are no barriers queued;
+         */
         isEmpty: function () {
-            return !Boolean(barrierQueue.length);
+            return mBarrierQueue.length == 0;
         },
 
         numBarriers: function () {
-            return barrierQueue.length;
+            return mBarrierQueue.length;
         }
     };
 }());

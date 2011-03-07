@@ -5,9 +5,11 @@ MG.missile = (function () {
 
     var MAX_RADIUS = 0.8*MG.TUNNEL_RADIUS;
 
-    var STATE_CRASHED = 'crashed';
-    var STATE_AUTOPILOT = 'autopilot';
-    var STATE_MANUAL = 'manual';
+    var MissileState = {
+        CRASHED:   'crashed',
+        AUTOPILOT: 'autopilot',
+        MANUAL:    'manual'
+    }
 
     var mState;
 
@@ -21,8 +23,6 @@ MG.missile = (function () {
     var mTargetX;
     var mTargetY;
 
-    var mDamping;
-
     var mDriftVelX;
     var mDriftVelY;
     var mDriftCounter;
@@ -35,7 +35,7 @@ MG.missile = (function () {
 
 
         reset: function (){
-            mState = STATE_AUTOPILOT;
+            mState = MissileState.AUTOPILOT;
 
             mOffset = 200.0;
             mVelocity = 0.0;
@@ -47,8 +47,6 @@ MG.missile = (function () {
             mTargetX = 0.0;
             mTargetY = 0.0;
 
-            mDamping = 0.25;
-
             mDriftVelX = 0.0;
             mDriftVelY = 0.0;
             mDriftCounter = 1.0;
@@ -59,8 +57,11 @@ MG.missile = (function () {
         update: function (dt) {
 
             switch (mState) {
-                case STATE_AUTOPILOT:
-                    // TODO    make this all less hard coded
+                case MissileState.AUTOPILOT:
+                    /* When under autopilot control, the missile will randomly
+                    drift around the center of the tunnel, changing direction at
+                    discrete intervals. */
+                    /* The drift counter contains the time until the next direction change. */
                     mDriftCounter -= dt;
                     if (mDriftCounter < 0) {
                         mDriftCounter = 1.1 + 0.9*Math.random();
@@ -68,31 +69,41 @@ MG.missile = (function () {
                         mDriftVelX = (MG.TUNNEL_RADIUS*(Math.random()-0.5) - mTargetX)/1.5;
                         mDriftVelY = (MG.TUNNEL_RADIUS*(Math.random()-0.5) - mTargetY)/1.5;
                     }
-                    mTargetX += mDriftVelX*dt;
-                    mTargetY += mDriftVelY*dt;
-                    // FALLTHROUGH
-                case STATE_MANUAL:
 
+                    /* TODO Smooth */
+                    mX += mDriftVelX * dt ;
+                    mY += mDriftVelY * dt ;
+
+                    break;
+
+                case MissileState.MANUAL:
                     mX += (mTargetX - mX) * dt / DRIFT_DAMPING;
                     mY += (mTargetY - mY) * dt / DRIFT_DAMPING;
-
-                    // clamp the missile's position to inside the tunnel wall
-                    var radius = Math.sqrt(mX*mX + mY*mY);
-                    var newRadius = Math.min(MAX_RADIUS, radius);
-
-                    mX = (radius === 0) ? 0 : mX*newRadius/radius;
-                    mY = (radius === 0) ? 0 : mY*newRadius/radius;
-
-                    mVelocity += dt*(mTargetVelocity - mVelocity)/ACCELERATION_TIME_CONSTANT;
                     break;
-                case STATE_CRASHED:
-                    mVelocity += dt*MG.BARRIER_SPACING*mVelocity/(mOffset - MG.BARRIER_SPACING);
-                    break;
+
                 default:
+                    /* leave the missile pointing in the same direction */
             }
+
+            /* Clamp the missile's position to inside the tunnel wall */
+            var radius = Math.sqrt(mX*mX + mY*mY);
+            var newRadius = Math.min(MAX_RADIUS, radius);
+
+            mX = (radius === 0) ? 0 : mX*newRadius/radius;
+            mY = (radius === 0) ? 0 : mY*newRadius/radius;
+
+
+
+            if (mState === MissileState.CRASHED) {
+                /* If the missile has crashed, it will bounce backwards coming
+                to rest near the location of the previous barrier. */
+                mVelocity += dt*MG.BARRIER_SPACING*mVelocity/(mOffset - MG.BARRIER_SPACING);
+            } else {
+                mVelocity += dt*(mTargetVelocity - mVelocity)/ACCELERATION_TIME_CONSTANT;
+            }
+
             mOffset -= mVelocity * dt;
         },
-
 
         getPosition: function () {
             return {x: mX, y:mY};
@@ -110,9 +121,12 @@ MG.missile = (function () {
             return mVelocity;
         },
 
+        isCrashed: function () {
+            return mState == MissileState.CRASHED;
+        },
 
         setTarget: function (targetX, targetY) {
-            if (mState === STATE_MANUAL) {
+            if (mState === MissileState.MANUAL) {
                 mTargetX = targetX;
                 mTargetY = targetY;
             }
@@ -124,11 +138,11 @@ MG.missile = (function () {
 
 
         setManual: function () {
-            mState = STATE_MANUAL;
+            mState = MissileState.MANUAL;
         },
 
         setAutopilot: function () {
-            mState = STATE_AUTOPILOT;
+            mState = MissileState.AUTOPILOT;
         },
 
 
@@ -137,12 +151,9 @@ MG.missile = (function () {
         },
 
         onCrash: function () {
-            // the last update must be unrolled to stop the missile 'crashing' again
-            // assume the game is running at about 60fps
-            mOffset += mVelocity*2/60;
-            mVelocity = -mVelocity;
+            mVelocity = -Math.abs(mVelocity);
 
-            mState = STATE_CRASHED;
+            mState = MissileState.CRASHED;
         }
     };
 }());

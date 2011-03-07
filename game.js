@@ -1,18 +1,20 @@
 MG.game = (function () {
 
     /** Constants **/
-    var STATE_WAIT_START = 'wait_start';
-    var STATE_STARTING = 'starting';
-    var STATE_RUNNING  = 'running';
-    var STATE_FINISHED = 'finished';
-    var STATE_CRASHED  = 'crashed';
+    var GameState = {
+        WAIT_START: 'wait_start',
+        STARTING:   'starting',
+        RUNNING:    'running',
+        FINISHED:   'finished',
+        CRASHED:    'crashed'
+    }
 
     var STARTING_LIVES = 5;
 
     var LEVEL_NUM_BARRIERS = 20;
 
     /** Variables **/
-    var mState = STATE_WAIT_START;
+    var mState = GameState.WAIT_START;
 
     var mLives = STARTING_LIVES;
     var mLevel = 0;
@@ -30,91 +32,112 @@ MG.game = (function () {
 //    var mWooshPlaying = false;
 
 
+    /* Strings for UI ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-    /* Returns a consistent string describing the current level */ 
-    function getLevelString() {
+    var getLevelString = function () {
         return mLevel ? 'LEVEL ' + mLevel : 'QUALIFYING LEVEL';
     }
 
-
-    var START_MESSAGE = {
-        title: getLevelString,
-        text: function () {return 'CLICK TO BEGIN';}
-    };
-    var CRASH_MESSAGE = {
-        title: function () {return 'CRASHED';},
-        text:  function () {return 'CLICK TO RETRY';}
-    };
-    var GAME_OVER_MESSAGE = {
-        title: function () {return 'GAME OVER';},
-        text:  function () {return 'CLICK TO START AGAIN';}
-    };
-    var FINISH_MESSAGE = {
-        title: function () {return 'LEVEL COMPLETED';},
-        text: function () {return 'CLICK TO CONTINUE';}
-    };
-
-
-
-    function goWaitStartLevel() {
-        MG.banner.show(START_MESSAGE.title(), START_MESSAGE.text());
-        MG.showMouse();
-
-        MG.missile.setAutopilot();
-        MG.missile.setVelocity(400 + 100*mLevel);
-
-        if (mLevel === 0) {mLives = Infinity;}
-
-        mState = STATE_WAIT_START;
-    }
-
-    function goRun() {
-        MG.banner.hide();
-        MG.hideMouse();
-
-        mRemainingBarriers = LEVEL_NUM_BARRIERS;
-        mBarriersToPass = LEVEL_NUM_BARRIERS;
-
-        MG.missile.setManual();
-
-
-        MG.barrierQueue.pushBarrier(MG.START_BARRIER);
-
-        mState = STATE_STARTING;
-    }
-
-    function goFinish() {
-        MG.banner.show(FINISH_MESSAGE.title(), FINISH_MESSAGE.text());
-        MG.showMouse();
-
-        MG.missile.setAutopilot();
-        MG.missile.setVelocity(300 + 100*mLevel);
-
-        mState = STATE_FINISHED;
-    }
-
-    function goCrash() {
-        MG.showMouse();
-
-        if (mLives === 0) {
-            MG.banner.show(GAME_OVER_MESSAGE.title(), GAME_OVER_MESSAGE.text());
-        } else {
-            MG.banner.show(CRASH_MESSAGE.title(), CRASH_MESSAGE.text());
+    var Messages = {
+        START: {
+            title: getLevelString,
+            text:  function () {return 'CLICK TO BEGIN';}
+        },
+        CRASH: {
+            title: function () {return 'CRASHED';},
+            text:  function () {return 'CLICK TO RETRY';}
+        },
+        GAME_OVER: {
+            title: function () {return 'GAME OVER';},
+            text:  function () {return 'CLICK TO START AGAIN';}
+        },
+        FINISH: {
+            title: function () {return 'LEVEL COMPLETED';},
+            text:  function () {return 'CLICK TO CONTINUE';}
         }
+    };
 
-        mState = STATE_CRASHED;
 
-        // play crash animation
+
+    var getLevelStartVelocity  = function (level) {
+        return 400 + 100*level;
+    }
+
+    var getLevelFinishVelocity = function (level) {
+        return 300 + 100*level;
+    }
+
+    var getLevelIdleVelocity   = function (level) {
+        return 550 + 100*level;
+    }
+
+
+    var playCrashAnimation = function () {
 //        var explosionProto = document.getElementById('explosion');
 //        var explosion = explosionProto.cloneNode(true);
-//        explosion.firstChild.beginElement();
+//        var animation = explosion.firstChild;
+//        animation.endElementAt(3);
+//        animation.beginElementAt(0);
+////        explosion.firstChild.beginElement();
 //        setTimeout(function (){rootNode.removeChild(explosion);}, 3000);
 
 //        var rootNode = document.getElementById('tunnel');
 //        rootNode.appendChild(explosion);
+    }
 
-        
+    var goWaitStartLevel = function () {
+        MG.banner.show(Messages.START.title(), Messages.START.text());
+        MG.showMouse();
 
+        MG.missile.setAutopilot();
+        MG.missile.setVelocity(getLevelStartVelocity(mLevel));
+
+        if (mLevel === 0) {mLives = Infinity;}
+
+        mState = GameState.WAIT_START;
+    }
+
+    /**
+     *
+     */
+    var goRun = function () {
+        MG.banner.hide();
+        MG.hideMouse();
+
+        /* TODO should the start barrier be pushed here?
+        If so, should all of the barriers for the entire level be pushed as well? */
+        mRemainingBarriers = LEVEL_NUM_BARRIERS;
+        MG.barrierQueue.pushBarrier(MG.START_BARRIER);
+
+        mBarriersToPass = LEVEL_NUM_BARRIERS;
+
+        MG.missile.setManual();
+
+        mState = GameState.STARTING;
+    }
+
+    var goFinish = function () {
+        MG.banner.show(Messages.FINISH.title(), Messages.FINISH.text());
+        MG.showMouse();
+
+        MG.missile.setAutopilot();
+        MG.missile.setVelocity(getLevelIdleVelocity(mLevel));
+
+        mState = GameState.FINISHED;
+    }
+
+    var goCrash = function () {
+        MG.showMouse();
+
+        if (mLives === 0) {
+            MG.banner.show(Messages.GAME_OVER.title(), Messages.GAME_OVER.text());
+        } else {
+            MG.banner.show(Messages.CRASH.title(), Messages.CRASH.text());
+        }
+
+        playCrashAnimation()
+
+        mState = GameState.CRASHED;
 
     }
 
@@ -160,7 +183,9 @@ MG.game = (function () {
 
             goWaitStartLevel();
 
-            rootNode.setAttribute('visibility', 'visible'); 
+            rootNode.setAttribute('visibility', 'visible');
+
+            setTimeout(playCrashAnimation, 1500);
         },
 
 
@@ -169,7 +194,7 @@ MG.game = (function () {
             MG.tunnelWall.update(dt);
             MG.barrierQueue.update(dt);    
 //            XXX AUDIO XXX
-//            if (MG.missile.getOffset()/MG.missile.getVelocity() < 0.8 && mWooshPlaying === false && mState !== STATE_CRASHED) {
+//            if (MG.missile.getOffset()/MG.missile.getVelocity() < 0.8 && mWooshPlaying === false && mState !== GameState.CRASHED) {
 //                mWooshPlaying = true;
 ////                var woosh = document.getElementById('woosh-sound').cloneNode(true);
 ////                woosh.setAttribute('autoplay', 'autoplay');
@@ -180,10 +205,9 @@ MG.game = (function () {
 //            }
 
 
-            // check whether the nearest barrier has been reached and whether the
-            //        missile collides with it.
+            /* check whether the nearest barrier has been reached and whether the missile collides with it. */
             if (!MG.barrierQueue.isEmpty()) {
-                if (MG.missile.getOffset() < MG.MISSILE_LENGTH){
+                if (MG.missile.getOffset() < MG.MISSILE_LENGTH && !MG.missile.isCrashed()){
                     var barrier = MG.barrierQueue.nextBarrier();
 
                     if (barrier.collides(MG.missile.getPosition().x, MG.missile.getPosition().y)) {
@@ -200,8 +224,8 @@ MG.game = (function () {
 //                        mWooshPlaying = false;
 
                         // TODO this block makes loads of assumptions about state
-                        if (mState === STATE_RUNNING
-                         || mState === STATE_STARTING) {
+                        if (mState === GameState.RUNNING
+                         || mState === GameState.STARTING) {
                             switch(barrier.getType()) {
                               case MG.FINISH_BARRIER:
                                 goFinish();
@@ -209,13 +233,13 @@ MG.game = (function () {
                               case MG.BLANK_BARRIER:
                                 break;
                               case MG.START_BARRIER:
-                                mState = STATE_RUNNING;
+                                mState = GameState.RUNNING;
                                 // FALLTHROUGH
                               default:
                                 mBarriersToPass--;
 
-                                var startVelocity = 400 + mLevel*100;
-                                var finishVelocity = 550 + mLevel*100;
+                                var startVelocity = getLevelStartVelocity(mLevel);
+                                var finishVelocity = getLevelFinishVelocity(mLevel);
 
                                 MG.missile.setVelocity(startVelocity
                                                          + (startVelocity - finishVelocity)
@@ -234,8 +258,8 @@ MG.game = (function () {
             while (MG.barrierQueue.numBarriers() < MG.LINE_OF_SIGHT/MG.BARRIER_SPACING) {
                 var type = MG.BLANK_BARRIER;
     
-                if (mState === STATE_RUNNING
-                 || mState === STATE_STARTING) {
+                if (mState === GameState.RUNNING
+                 || mState === GameState.STARTING) {
                     mRemainingBarriers--;
                     if (mRemainingBarriers > 0) {
                         type = MG.RANDOM_BARRIER;
@@ -249,16 +273,17 @@ MG.game = (function () {
                 MG.barrierQueue.pushBarrier(type);
             }
 
+            /* Update progress */
             switch (mState) {
-              case STATE_RUNNING:
+              case GameState.RUNNING:
                 mProgress = 1 - (mBarriersToPass*MG.BARRIER_SPACING + MG.missile.getOffset())/(LEVEL_NUM_BARRIERS * MG.BARRIER_SPACING);
                 mBestProgress = Math.max(mProgress, mBestProgress);
                 break;
-              case STATE_FINISHED:
+              case GameState.FINISHED:
                 mProgress = 1;
                 mBestProgress = 1;
                 break;
-              case STATE_STARTING:
+              case GameState.STARTING:
                 mProgress = 0;
                 break;
               default:
@@ -286,10 +311,10 @@ MG.game = (function () {
         onMouseClick: function () {
             if (MG.banner.isFullyVisible()) {
                 switch (mState) {
-                  case STATE_WAIT_START:
+                  case GameState.WAIT_START:
                     goRun();
                     break;
-                  case STATE_FINISHED:
+                  case GameState.FINISHED:
                     /* The player is given an infinite number of lives
                     during the qualifying level but these should be
                     removed before continuing. */
@@ -301,7 +326,7 @@ MG.game = (function () {
 
                     goWaitStartLevel();
                     break;
-                  case STATE_CRASHED:
+                  case GameState.CRASHED:
                     MG.banner.hide();
                     MG.fog.fadeIn(function() {
                             if (mLives === 0) {
@@ -329,7 +354,7 @@ MG.game = (function () {
             return mLevel;
         },
 
-        /* Returns a consistent string describing the current level */ 
+        /* Returns a human readable string describing the current level */
         getLevelString: getLevelString,
 
         /* Returns the number of times the player can crash before game over. */
