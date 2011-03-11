@@ -39,7 +39,7 @@
     }
 
     text {
-      font-family: sans;
+      font-family: sans-serif;
       font-weight: bold;
     }
 
