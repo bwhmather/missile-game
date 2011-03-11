@@ -110,7 +110,7 @@ MG.fog = (function (){
                 }
             }
 
-            rootNode.setAttribute('fill-opacity', (100*(0.5 - 0.5*Math.cos(Math.PI*visibility))) + '%');
+            rootNode.setAttribute('opacity', String((0.5 - 0.5*Math.cos(Math.PI*visibility))));
         }
     };
 }());

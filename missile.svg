@@ -28,7 +28,7 @@
     .hud-background {
       stroke: none;
       fill: white;
-      fill-opacity: 80%;      
+      fill-opacity: 0.8;      
     }
 
     .hud-foreground {
@@ -50,7 +50,7 @@
     #banner rect {
       stroke-width: 0.005;
       fill: black;
-      fill-opacity: 95%;
+      fill-opacity: 0.95;
     }
 
     * {cursor:crosshair}
@@ -218,7 +218,7 @@
             <path
                stroke="white"
                stroke-width="0.02"
-               stroke-opacity="20%"
+               stroke-opacity="0.2"
                d="m  0.0, 0.04
                   C  0.5, 0.5  0.5,-0.5  0.0,-0.04
                   C -0.5,-0.5 -0.5, 0.5  0.0, 0.04
@@ -238,7 +238,7 @@
                transform="scale(0.8,0.8)"
                stroke="white"
                stroke-width="0.02"
-               stroke-opacity="20%"
+               stroke-opacity="0.2"
                d="M  0.0, 0.4
                   A  0.4, 0.4  0 0,0  0.4, 0.0
                   A  0.4, 0.4  0 0,0  0.0,-0.4
@@ -309,7 +309,7 @@
   </g>
 
   <rect id="fog"
-    width="100%" height="100%" fill="white" fill-opacity="100%"/>
+    width="100%" height="100%" fill="white" opacity="1"/>
 
   <svg id="banner"
      width="130%" height="100%"
