@@ -69,14 +69,3 @@ MG.showMouse = function () {
 };
 
 
-
-MG.getViewportWidth = function () {
-  // TODO
-  return 100.0;
-};
-
-MG.getViewportHeight = function () {
-  // TODO
-  return 100.0;
-};
-

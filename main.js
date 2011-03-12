@@ -3,7 +3,6 @@ MG.init = function () {
     MG.suspendRedraw();
 
     MG.fog.init();
-
     MG.banner.init();
     MG.game.init();
     MG.hud.init();
