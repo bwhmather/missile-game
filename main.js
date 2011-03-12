@@ -18,11 +18,12 @@ MG.init = function () {
 
     window.addEventListener('mousedown', MG.game.onMouseClick, false);
 
-    var lastTick = new Date();
+    var lastTick = new Date().getTime();
 
     function update () {
-        var thisTick = new Date();
-        var dt = timeDifference(lastTick, thisTick);
+        var thisTick = new Date().getTime();
+        var dt = (thisTick - lastTick)/1000;
+        console.log(dt);
         lastTick = thisTick;
 
         MG.fog.update(dt);
@@ -33,19 +34,13 @@ MG.init = function () {
 
         MG.suspendRedraw();
 
-        MG.game.updateDOM(dt);
-        MG.hud.updateDOM(dt);
-        MG.banner.updateDOM(dt);
+        MG.fog.updateDOM();
+        MG.game.updateDOM();
+        MG.hud.updateDOM();
+        MG.banner.updateDOM();
 
         MG.unsuspendRedraw();
     }
 
-    function timeDifference (a, b) {
-        return (0.001*(b.getMilliseconds() - a.getMilliseconds())
-            + (b.getSeconds() - a.getSeconds())
-            + 60*(b.getMinutes() - a.getMinutes())
-            + 60*60*(b.getHours() - a.getHours())
-            + 60*60*24*(b.getDay() - a.getDay()));
-    }
 }
 
