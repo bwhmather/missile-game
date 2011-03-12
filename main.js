@@ -1,7 +1,5 @@
 
-
-
-function init() {
+MG.init = function () {
     MG.suspendRedraw();
 
     MG.fog.init();
