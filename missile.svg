@@ -74,6 +74,7 @@
   <script xlink:href="game.js" />
   <script xlink:href="hud.js" />
   <script xlink:href="banner.js" />
+  <script xlink:href="fog.js" />
   <script xlink:href="main.js" />
 
   <svg id="tunnel"
