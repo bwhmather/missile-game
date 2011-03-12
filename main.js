@@ -22,7 +22,6 @@ MG.init = function () {
     function update () {
         var thisTick = new Date().getTime();
         var dt = (thisTick - lastTick)/1000;
-        console.log(dt);
         lastTick = thisTick;
 
         MG.fog.update(dt);
