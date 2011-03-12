@@ -25,20 +25,17 @@ MG.init = function () {
         var dt = timeDifference(lastTick, thisTick);
         lastTick = thisTick;
 
-
-        MG.suspendRedraw();
-
         MG.fog.update(dt);
-
         MG.game.update(dt);
         MG.hud.update(dt);
         MG.banner.update(dt);
 
 
+        MG.suspendRedraw();
+
         MG.game.updateDOM(dt);
         MG.hud.updateDOM(dt);
         MG.banner.updateDOM(dt);
-
 
         MG.unsuspendRedraw();
     }

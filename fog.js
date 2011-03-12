@@ -5,57 +5,64 @@ MG.fog = (function (){
     var SHOW_TIME = 2.0;
     var HIDE_TIME = 4.0;
 
-    var FADING_IN = 1;
-    var FADING_OUT = -1;
+    var FogState = {
+        FADING_IN:  'fading-in',
+        FADING_OUT: 'fading-out'
+    };
 
-    var state = FADING_OUT;
+    var mState = FogState.FADING_OUT;
 
-    var callback = null;
+    var mCallback = null;
 
-    var rootNode;
-    var visibility = 1.0;
+    var mRootNode;
+    var mVisibility = 1.0;
 
     return {
         init: function () {
-            rootNode = document.getElementById('fog');
+            mRootNode = document.getElementById('fog');
         },
 
         fadeIn: function (newCallback) {
-            state = FADING_IN;
-            rootNode.setAttribute('visibility', 'visible');
-            callback = newCallback; // XXX overwrites any previous callback + does not check for undefined
+            mState = FogState.FADING_IN;
+            mRootNode.setAttribute('visibility', 'visible');
+            mCallback = newCallback;
         },
 
-        fadeOut: function (newCallback) {
-            state = FADING_OUT;
-            callback = newCallback; // XXX overwrites any previous callback + does not check for undefined
+        fadeOut: function (callback) {
+            mState = FogState.FADING_OUT;
+            mCallback = callback;
         },
 
         update: function (dt) {
-            if (state === FADING_OUT) {
-                visibility -= dt/HIDE_TIME;
+            if (mState === FogState.FADING_OUT) {
+                mVisibility -= dt/HIDE_TIME;
 
-                if (visibility < 0) {
-                    visibility = 0;
-                    rootNode.setAttribute('visibility', 'hidden');
-                    if (callback !== null) {
-                        callback();
-                        callback = null;
+                if (mVisibility < 0) {
+                    mVisibility = 0;
+                    if (mCallback) {
+                        mCallback();
+                        mCallback = undefined;
                     }
                 }
             } else {
-                visibility += dt/SHOW_TIME;
+                mVisibility += dt/SHOW_TIME;
 
-                if (visibility > 1) {
-                    visibility = 1;
-                    if (callback !== null) {
-                        callback();
-                        callback = null;
+                if (mVisibility > 1) {
+                    mVisibility = 1;
+                    if (mCallback) {
+                        mCallback();
+                        mCallback = undefined;
                     }
                 }
             }
+        },
 
-            rootNode.setAttribute('opacity', String((0.5 - 0.5*Math.cos(Math.PI*visibility))));
+        updateDOM: function () {
+            if (mVisibility < 0) {
+                mRootNode.setAttribute('visibility', 'hidden');
+            } else {
+                mRootNode.setAttribute('opacity', String((0.5 - 0.5*Math.cos(Math.PI*mVisibility))));
+            }
         }
     };
 }());

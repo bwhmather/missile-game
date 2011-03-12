@@ -55,7 +55,7 @@ MG.hud = (function () {
             rootNode.setAttribute('visibility', 'visible');
         },
 
-        update: function (dt) {
+        updateDOM: function (dt) {
 
             // ----------------------------------------------------------- Radar
 
@@ -131,7 +131,7 @@ MG.hud = (function () {
             }
         },
 
-        updateDOM: function () {
+        update: function () {
             // TODO
         }
     };
