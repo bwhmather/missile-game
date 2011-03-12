@@ -2,21 +2,49 @@ MG.barrierQueue = (function () {
     var mBarrierQueue = [];
     var mRootNode;
 
+    var mFirstBarrierIndex = 0;
+
     return {
         init: function (rootNode) {
             mRootNode = rootNode;
         },
 
         update: function (dt) {
-            // iterate through and update each of the barrierQueue
-            for (var i=0; i < mBarrierQueue.length; i++) {
+            var i;
+
+            /* iterate through and update each of the barriers in the queue */
+            for (i = mFirstBarrierIndex; i < mBarrierQueue.length; i++) {
                 mBarrierQueue[i].update(dt);
             }
         },
 
         updateDOM: function (missileX, missileY, missileOffset) {
+            var i;
+
+            /* Remove any barriers that have been queued for deletion */
+            while (mFirstBarrierIndex > 0) {
+                mBarrierQueue[0].destroy();
+                mBarrierQueue.shift();
+                mFirstBarrierIndex --;
+            }
+
+            /* Initialise any uninitialised barriers and add them behind the ones already there. */
+            for (i = 0; i < mBarrierQueue.length; i++) {
+                var barrier = mBarrierQueue[i];
+
+                if (!barrier.isInitialised()) {
+                    barrier.init();
+
+                    if (i > 0) {
+                        mRootNode.insertBefore(barrier.getRootNode(), mBarrierQueue[i-1].getRootNode());
+                    } else {
+                        mRootNode.appendChild(barrier.getRootNode());
+                    }
+                }
+            }
+
             var z = 0.0;
-            for (var i = 0; i < mBarrierQueue.length; i++) {
+            for (i = 0; i < mBarrierQueue.length; i++) {
                 mBarrierQueue[i].updateDOM(missileX, missileY, z + missileOffset);
                 z += MG.BARRIER_SPACING;
             }
@@ -27,59 +55,51 @@ MG.barrierQueue = (function () {
          * The starting angle and angular rate are randomized.
          */
         pushBarrier: function (type) {
-            var barrier;
+            /* Create a new barrier but do not initialise it */
+            var barrier = new MG.Barrier(type);
 
-            // Create barrier
-            var barrierNode = document.createElementNS(NAMESPACE_SVG, 'g');
-            var barrier = new MG.Barrier(barrierNode, type);
-
-            // add barrier to DOM and to internal list
+            /* Add the barrier to the internal list */
             mBarrierQueue[mBarrierQueue.length] = barrier;
 
-            if (mRootNode.hasChildNodes()) {
-                mRootNode.insertBefore(barrierNode, mRootNode.firstChild);
-            } else {
-                mRootNode.appendChild(barrierNode);
-            }
         },
 
         /**
-         * Pops the barrier closest to the missile and adjusts the missile offset so
-         * that it relates to the next barrier in the queue.
+         * Pops the barrier closest to the missile.
          */
         popBarrier: function () {
-            var barrier = mBarrierQueue[0];
-            if (barrier) {
-                barrier.destroy();
-                mBarrierQueue.shift();
-            }
+            mFirstBarrierIndex++;
+            mFirstBarrierIndex = Math.min(mFirstBarrierIndex, mBarrierQueue.length);
         },
 
         /**
-         * Returns a reference to the barrier at the front of the queue
+         * Returns a reference to the barrier at the front of the queue.
          */
         nextBarrier: function () {
-            return mBarrierQueue[0];
+            return mBarrierQueue[mFirstBarrierIndex];
         },
 
         /**
          * Deletes all barriers and returns the queue to it's original, empty state.
          */
         reset: function () {
-            while (!this.isEmpty()){
+            while (mBarrierQueue.length > 0) {
                 this.popBarrier();
             }
         },
 
         /**
-         * Returns true if there are no barriers queued;
+         * Returns true if there are no barriers queued.
          */
         isEmpty: function () {
-            return mBarrierQueue.length == 0;
+            return this.nextBarrier() === undefined;
         },
 
+
+        /**
+         * Returns the number of barriers in the queue that have not been marked for deletion.
+         */
         numBarriers: function () {
-            return mBarrierQueue.length;
+            return mBarrierQueue.length - mFirstBarrierIndex;
         }
     };
 }());
