@@ -61,6 +61,7 @@ MG.fog = (function (){
             if (mVisibility < 0) {
                 mRootNode.setAttribute('visibility', 'hidden');
             } else {
+                mRootNode.setAttribute('visibility', 'visible');
                 mRootNode.setAttribute('opacity', String((0.5 - 0.5*Math.cos(Math.PI*mVisibility))));
             }
         }

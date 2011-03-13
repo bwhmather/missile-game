@@ -82,7 +82,7 @@ MG.barrierQueue = (function () {
          * Deletes all barriers and returns the queue to it's original, empty state.
          */
         reset: function () {
-            while (mBarrierQueue.length > 0) {
+            while (mFirstBarrierIndex < mBarrierQueue.length) {
                 this.popBarrier();
             }
         },
