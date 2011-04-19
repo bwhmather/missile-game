@@ -306,14 +306,14 @@
      overflow="visible"
      visibility="hidden" >
     <rect
-       class="hud-foreground"
-       stroke-width="0.005"
+       x="-0.1" y="0.45"
+       width="6" height="0.2"
        fill="#000"
        opacity="0.95"
-       x="-0.1"
-       y="0.45"
-       width="6"
-       height="0.2"/>
+       stroke-linejoin="round"
+       stroke-linecap="round"
+       stroke-width="0.005" />
+
     <g transform="translate(-0.05,0.54) scale(0.004,0.004)">
       <text id="banner-title"
          fill="#fff" ></text>
