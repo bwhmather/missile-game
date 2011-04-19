@@ -3,13 +3,13 @@ MG.banner = (function () {
     var HIDE_TIME = 0.8;
 
     var BannerState = {
-        HIDDEN: "hidden",
-        VISIBLE: "visible",
-        MESSAGE_QUEUED: "message-queued"
+        HIDDEN: 'hidden',
+        VISIBLE: 'visible',
+        MESSAGE_QUEUED: 'message-queued'
     };
 
-    var mTitle = "";
-    var mText = "";
+    var mTitle = '';
+    var mText = '';
 
     var mRootNode;
 
@@ -30,11 +30,11 @@ MG.banner = (function () {
             mRootNode = document.getElementById('banner');
 
             var titleBoxNode = document.getElementById('banner-title');
-            mTitleNode = document.createTextNode("");
+            mTitleNode = document.createTextNode('');
             titleBoxNode.appendChild(mTitleNode);
 
             var textBoxNode = document.getElementById('banner-text');
-            mTextNode = document.createTextNode("");
+            mTextNode = document.createTextNode('');
             textBoxNode.appendChild(mTextNode);
 
             mRootNode.setAttribute('visibility', 'visible');

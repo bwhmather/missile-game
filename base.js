@@ -5,14 +5,14 @@ var MG = {};
 // Constants
 //==============================================================================
 
-NAMESPACE_SVG   = "http://www.w3.org/2000/svg";
-NAMESPACE_XLINK = "http://www.w3.org/1999/xlink";
+NAMESPACE_SVG   = 'http://www.w3.org/2000/svg';
+NAMESPACE_XLINK = 'http://www.w3.org/1999/xlink';
 
 //
 
-MG.BARRIERS_ROOT_ELEMENT_ID  = "barriers";
-MG.HUD_ROOT_ELEMENT_ID       = "hud";
-MG.MENU_ROOT_ELEMENT_ID      = "menu";
+MG.BARRIERS_ROOT_ELEMENT_ID  = 'barriers';
+MG.HUD_ROOT_ELEMENT_ID       = 'hud';
+MG.MENU_ROOT_ELEMENT_ID      = 'menu';
 
 MG.BARRIER_SPACING = 650.0;
 MG.TUNNEL_RADIUS = 100;

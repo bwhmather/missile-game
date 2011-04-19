@@ -96,8 +96,8 @@ MG.Barrier = function (type) {
         /* the line to be used for finding the intersections should already exist
         but needs to be made to the point to the point that is to be tested */
         var lineNode = document.getElementById('collision-line');
-        lineNode.setAttribute("x2", x_);
-        lineNode.setAttribute("y2", y_);
+        lineNode.setAttribute('x2', x_);
+        lineNode.setAttribute('y2', y_);
 
         /* As the barriers path may not have been created yet, the original path is used */
         var pathNode = document.getElementById(MG.BARRIER_PATH_IDS[mType]);
@@ -133,9 +133,9 @@ MG.Barrier = function (type) {
                 (Math.tan(Math.PI * MG.FIELD_OF_VIEW/360.0)*(offset + 10));
 
         mFrontPath.setAttribute('transform',
-                "scale(" + frontScale + ") translate(" + x    + "," + y + ") rotate(" + mTheta + ")");
+                'scale(' + frontScale + ') translate(' + x    + ',' + y + ') rotate(' + mTheta + ')');
         mBackPath.setAttribute('transform',
-                "scale(" + backScale + ") translate(" + x    + "," + y + ") rotate(" + mTheta + ")");
+                'scale(' + backScale + ') translate(' + x    + ',' + y + ') rotate(' + mTheta + ')');
 
         offset = Math.max(MG.LINE_OF_SIGHT - MG.BARRIER_SPACING ,Math.min(MG.LINE_OF_SIGHT,offset));
         var fog = 100 -100*(MG.LINE_OF_SIGHT - offset)/MG.BARRIER_SPACING;
