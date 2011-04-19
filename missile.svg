@@ -15,16 +15,9 @@
    width="100%" height="100%"
    onload="setTimeout('MG.init()', 100)" >
   <style>
-
     .barrier path {
       stroke-width: 2;
       stroke-linejoin: round;
-    }
-
-    .hud-foreground {
-      stroke: none;
-      stroke-linejoin: round;
-      fill: black;
     }
 
     .hud-background {
@@ -45,16 +38,6 @@
       font-weight: bold;
     }
 
-    #banner text {
-      fill: white;
-    }
-
-    #banner rect {
-      stroke-width: 0.005;
-      fill: black;
-      fill-opacity: 0.95;
-    }
-
     * {cursor:crosshair}
   </style>
   <style title="style-hide-mouse">
@@ -64,7 +47,6 @@
 
 <!-- Kevin Lindsey's 2d geometry SVG library -->
   <script xlink:href="kevlindev/2D.js" />
-
   <script xlink:href="kevlindev/Path.js" />
 
 <!-- Game files -->
@@ -312,7 +294,10 @@
   </g>
 
   <rect id="fog"
-    width="100%" height="100%" fill="white" opacity="1"/>
+    width="100%" height="100%"
+    fill="white"
+    opacity="1" />
+
 
   <svg id="banner"
      width="130%" height="100%"
@@ -320,18 +305,23 @@
      viewBox="0 0 0.01 1"
      overflow="visible"
      visibility="hidden" >
-      <rect id="ract"
-         class="hud-foreground"
-         x="-0.1"
-         y="0.45"
-         width="6"
-         height="0.2"/>
-      <g transform="translate(-0.05,0.54) scale(0.004,0.004)">
-        <text id="banner-title"></text>
-      </g>
-      <g transform="translate(0.25,0.6) scale(0.0025,0.0025)">
-        <text id="banner-text" style="fill:#ccc;"></text>
-      </g>
+    <rect
+       class="hud-foreground"
+       stroke-width="0.005"
+       fill="#000"
+       opacity="0.95"
+       x="-0.1"
+       y="0.45"
+       width="6"
+       height="0.2"/>
+    <g transform="translate(-0.05,0.54) scale(0.004,0.004)">
+      <text id="banner-title"
+         fill="#fff" ></text>
+    </g>
+    <g transform="translate(0.25,0.6) scale(0.0025,0.0025)">
+      <text id="banner-text"
+         fill="#ccc" ></text>
+    </g>
   </svg>
 
 
