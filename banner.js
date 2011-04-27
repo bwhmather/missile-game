@@ -71,8 +71,8 @@ MG.banner = (function () {
                 node is removed and reinserted */
                 /* Apparently removing and reinserting nodes is also necessary
                 for decent performance in Firefox but I have not done any testing */  
-                nextSibling = mRootNode.nextSibling ;
-                parent = mRootNode.parentNode;
+                var nextSibling = mRootNode.nextSibling ;
+                var parent = mRootNode.parentNode;
                 parent.removeChild(mRootNode);
 
                 mRootNode.setAttribute('width', (30 + 80*(0.5 + 0.5*Math.cos(Math.PI*mVisibility))) + '%');

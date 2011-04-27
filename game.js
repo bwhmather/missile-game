@@ -293,11 +293,18 @@ MG.game = (function () {
         },
 
         updateDOM: function () {
+            var rootNode = document.getElementById('tunnel');
+            var nextSibling = rootNode.nextSibling ;
+            var parentNode = rootNode.parentNode;
+            parentNode.removeChild(rootNode);
+
             var position = MG.missile.getPosition();
             var offset = MG.missile.getOffset();
 
             MG.barrierQueue.updateDOM(-position.x, -position.y, offset);
             MG.tunnelWall.updateDOM(-position.x, -position.y, offset);
+
+            parentNode.insertBefore(rootNode, nextSibling);
         },
 
         onMouseMove: function (x, y) {
