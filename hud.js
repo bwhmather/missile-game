@@ -1,4 +1,6 @@
 MG.hud = (function () {
+    var mRootNode;
+
     var mRadar;
     var mSpeedometer;
     var mLevelIndicator;
@@ -8,7 +10,7 @@ MG.hud = (function () {
     return {
 
         init: function () {
-            var rootNode = document.getElementById('hud');
+            mRootNode = document.getElementById('hud');
 
             // ----------------------------------------------------------- Radar
 
@@ -164,7 +166,7 @@ MG.hud = (function () {
                 };
             } ());
 
-            rootNode.setAttribute('visibility', 'visible');
+            mRootNode.setAttribute('visibility', 'visible');
         },
 
         update: function (dt) {
@@ -176,11 +178,13 @@ MG.hud = (function () {
         },
 
         updateDOM: function () {
-            mRadar.updateDOM();
-            mSpeedometer.updateDOM();
-            mLevelIndicator.updateDOM();
-            mProgressIndicator.updateDOM();
-            mLifeCounter.updateDOM();
+            MG.removeEditInsert(mRootNode, function () {
+                mRadar.updateDOM();
+                mSpeedometer.updateDOM();
+                mLevelIndicator.updateDOM();
+                mProgressIndicator.updateDOM();
+                mLifeCounter.updateDOM();
+            });
         }
     };
 }());

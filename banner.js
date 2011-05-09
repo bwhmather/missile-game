@@ -64,23 +64,14 @@ MG.banner = (function () {
         updateDOM: function () {
 
 
-            if (mVisibility === 0) {
-                mRootNode.setAttribute('visibility', 'hidden');
-            } else {
-                /* For some reason Firefox ignores changes to 'width' unless the
-                node is removed and reinserted */
-                /* Apparently removing and reinserting nodes is also necessary
-                for decent performance in Firefox but I have not done any testing */  
-                var nextSibling = mRootNode.nextSibling ;
-                var parent = mRootNode.parentNode;
-                parent.removeChild(mRootNode);
-
-                mRootNode.setAttribute('width', (30 + 80*(0.5 + 0.5*Math.cos(Math.PI*mVisibility))) + '%');
-                mRootNode.setAttribute('visibility', 'visible');
-
-                parent.insertBefore(mRootNode, nextSibling);
-            }
-
+            MG.removeEditInsert (mRootNode, function (rootNode) {
+                if (mVisibility === 0) {
+                    mRootNode.setAttribute('visibility', 'hidden');
+                } else {
+                    mRootNode.setAttribute('width', (30 + 80*(0.5 + 0.5*Math.cos(Math.PI*mVisibility))) + '%');
+                    mRootNode.setAttribute('visibility', 'visible');
+                }
+            });
         },
 
 
