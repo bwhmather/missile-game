@@ -5,16 +5,12 @@
 MG.util = {} ;
 
 MG.util.suspendRedraw = function () {
-      // asv doesn't implement suspendRedraw, so we wrap this in a try-block:
-            document.documentElement.suspendRedraw(0);
+    document.documentElement.suspendRedraw(0);
 };
 
 
 MG.util.unsuspendRedraw = function () {
-      try {
-            document.documentElement.unsuspendRedraw(0);
-      }
-      catch(e) {}
+    document.documentElement.unsuspendRedraw(0);
 };
 
 
