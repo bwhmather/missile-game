@@ -271,13 +271,22 @@
     <!-- Progress Indicator ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
       <g
         transform="translate(0,0.965), scale(0.95,-0.95)">
-        <rect
-           class="hud-background"
-           x="0.005"
-           width="0.025"
-           height="1.005"/>
 
-        <text transform="translate(0.024,0.01), rotate(90), scale(0.0026,-0.0026)">PROGRESS</text>
+        <path
+           stroke="#333333"
+           stroke-width="0.0005"
+           fill="white"
+           opacity="0.8"
+           d="M  0.03   0.0
+              l -0.04   0.0
+                -0.005  0.005
+                 0.0    0.26
+                 0.02   0.02
+                 0.0    0.72
+                 0.025  0
+              z" />
+
+        <text opacity="0.8" transform="translate(0.024,0.01), rotate(90), scale(0.0026,-0.0026)">PROGRESS</text>
 
         <g id="hud-progress-indicator-best-progress"
            transform="translate(0,0.2)">
