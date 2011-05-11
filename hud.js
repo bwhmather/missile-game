@@ -69,7 +69,7 @@ MG.hud = (function () {
                         mSpeed = MG.missile.getVelocity();
                     },
                     updateDOM: function () {
-                        mTextNode.data = Math.floor(mSpeed);
+                        mTextNode.data = mSpeed.toFixed(0);
                         
                         // TODO (possibly) work out the maximum speed properly and put a cap on the level with a nice victory screen
                         mBarNode.setAttribute('x', mSpeed/2000 - 1);
@@ -166,6 +166,33 @@ MG.hud = (function () {
                 };
             } ());
 
+            // --------------------------------------------- Framerate Indicator
+            mFrameRateIndicator = (function () {
+                var mTextNode = document.createTextNode('');
+                document.getElementById('hud-frame-rate-indicator').appendChild(mTextNode);
+
+                var mFrameRate = 0
+
+                return {
+                    update: function (dt) {
+                        if (mFrameRate <= 0) {
+                            /* Assume game has just started and use first time
+                            step as an initial guess for the frame rate */
+                            mFrameRate = 1/dt ;
+                        } else {
+                            /* Smooth out the frame rate readings over a number of frames */
+                            mFrameRate = 0.99*mFrameRate + 0.01/dt;
+                        }
+                    },
+
+                    updateDOM: function () {
+                        mTextNode.data = mFrameRate.toPrecision(3) + 'FPS' ;
+                    }
+                };
+            } ());
+
+
+
             mRootNode.setAttribute('visibility', 'visible');
         },
 
@@ -175,6 +202,7 @@ MG.hud = (function () {
             mLevelIndicator.update(dt);
             mProgressIndicator.update(dt);
             mLifeCounter.update(dt);
+            mFrameRateIndicator.update(dt);
         },
 
         updateDOM: function () {
@@ -184,6 +212,7 @@ MG.hud = (function () {
                 mLevelIndicator.updateDOM();
                 mProgressIndicator.updateDOM();
                 mLifeCounter.updateDOM();
+                mFrameRateIndicator.updateDOM();
             });
         }
     };
