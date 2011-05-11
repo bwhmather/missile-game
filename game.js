@@ -59,18 +59,21 @@ MG.game = (function () {
 
 
 
-    var getLevelStartVelocity  = function (level) {
-        return 400 + 100*level;
-    }
-
-    var getLevelFinishVelocity = function (level) {
+    var getLevelStartVelocity   = function (level) {
         return 300 + 100*level;
     }
 
-    var getLevelIdleVelocity   = function (level) {
-        return 550 + 100*level;
+    var getLevelFinishVelocity  = function (level) {
+        return 400 + 100*level;
     }
 
+    var getPreLevelIdleVelocity = function (level) {
+        return 350 + 100*level;
+    }
+
+    var getPostLevelIdleVelocity = function (level) {
+        return 550 + 100*level;
+    }
 
     var playCrashAnimation = function () {
 //        var explosionProto = document.getElementById('explosion');
@@ -90,7 +93,7 @@ MG.game = (function () {
         MG.util.showMouse();
 
         MG.missile.setAutopilot();
-        MG.missile.setVelocity(getLevelStartVelocity(mLevel));
+        MG.missile.setVelocity(getPreLevelIdleVelocity(mLevel));
 
         if (mLevel === 0) {mLives = Infinity;}
 
@@ -121,7 +124,7 @@ MG.game = (function () {
         MG.util.showMouse();
 
         MG.missile.setAutopilot();
-        MG.missile.setVelocity(getLevelIdleVelocity(mLevel));
+        MG.missile.setVelocity(getPostLevelIdleVelocity(mLevel));
 
         mState = GameState.FINISHED;
     }
