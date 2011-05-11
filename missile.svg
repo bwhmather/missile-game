@@ -60,6 +60,7 @@
 
 <!-- Game files -->
   <script xlink:href="base.js" />
+  <script xlink:href="util.js" />
   <script xlink:href="missile.js" />
   <script xlink:href="wall.js" />
   <script xlink:href="barrier.js" />

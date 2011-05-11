@@ -64,7 +64,7 @@ MG.banner = (function () {
         updateDOM: function () {
 
 
-            MG.removeEditInsert (mRootNode, function (rootNode) {
+            MG.util.removeEditInsert (mRootNode, function (rootNode) {
                 if (mVisibility === 0) {
                     mRootNode.setAttribute('visibility', 'hidden');
                 } else {

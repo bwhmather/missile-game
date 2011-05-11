@@ -87,7 +87,7 @@ MG.game = (function () {
 
     var goWaitStartLevel = function () {
         MG.banner.show(Messages.START.title(), Messages.START.text());
-        MG.showMouse();
+        MG.util.showMouse();
 
         MG.missile.setAutopilot();
         MG.missile.setVelocity(getLevelStartVelocity(mLevel));
@@ -102,7 +102,7 @@ MG.game = (function () {
      */
     var goRun = function () {
         MG.banner.hide();
-        MG.hideMouse();
+        MG.util.hideMouse();
 
         /* TODO should the start barrier be pushed here?
         If so, should all of the barriers for the entire level be pushed as well? */
@@ -118,7 +118,7 @@ MG.game = (function () {
 
     var goFinish = function () {
         MG.banner.show(Messages.FINISH.title(), Messages.FINISH.text());
-        MG.showMouse();
+        MG.util.showMouse();
 
         MG.missile.setAutopilot();
         MG.missile.setVelocity(getLevelIdleVelocity(mLevel));
@@ -127,7 +127,7 @@ MG.game = (function () {
     }
 
     var goCrash = function () {
-        MG.showMouse();
+        MG.util.showMouse();
 
         if (mLives === 0) {
             MG.banner.show(Messages.GAME_OVER.title(), Messages.GAME_OVER.text());
@@ -295,7 +295,7 @@ MG.game = (function () {
         updateDOM: function () {
             var rootNode = document.getElementById('tunnel');
 
-            MG.removeEditInsert(rootNode, function () {
+            MG.util.removeEditInsert(rootNode, function () {
                 var position = MG.missile.getPosition();
                 var offset = MG.missile.getOffset();
 

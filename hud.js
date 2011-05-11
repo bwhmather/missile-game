@@ -178,7 +178,7 @@ MG.hud = (function () {
         },
 
         updateDOM: function () {
-            MG.removeEditInsert(mRootNode, function () {
+            MG.util.removeEditInsert(mRootNode, function () {
                 mRadar.updateDOM();
                 mSpeedometer.updateDOM();
                 mLevelIndicator.updateDOM();
