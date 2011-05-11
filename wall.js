@@ -16,16 +16,17 @@ MG.tunnelWall = (function (rootNode) {
         init: function (rootNode) {
 
             var gradient = document.createElementNS(NAMESPACE_SVG, 'linearGradient');
-            rootNode.appendChild(gradient);
             gradient.id = 'tunnel-wall-segment-fade-gradient';
+            gradient.setAttribute('gradientUnits', 'userSpaceOnUse');
+            rootNode.appendChild(gradient);
 
             var gradientStart = document.createElementNS(NAMESPACE_SVG, 'stop');
-            gradientStart.setAttribute('offset', (100*NEAR_CLIPPING_PLANE / GRADIENT_START) + '%');
+            gradientStart.setAttribute('offset', (5*NEAR_CLIPPING_PLANE / GRADIENT_START) + '');
             gradientStart.setAttribute('stop-color', '#fff');
             gradient.appendChild(gradientStart);
 
             var gradientStop = document.createElementNS(NAMESPACE_SVG, 'stop');
-            gradientStop.setAttribute('offset', (100*NEAR_CLIPPING_PLANE / GRADIENT_STOP) + '%');
+            gradientStop.setAttribute('offset', (5*NEAR_CLIPPING_PLANE / GRADIENT_STOP) + '');
             gradientStop.setAttribute('stop-color', '#000');
             gradient.appendChild(gradientStop);
 
@@ -33,7 +34,7 @@ MG.tunnelWall = (function (rootNode) {
 
                 mSegments[i] = document.createElementNS(NAMESPACE_SVG, 'path');
                 mSegments[i].setAttribute('class', 'wall-segment-dark');
-                mSegments[i].setAttribute('d', 'M 0,0 l 100,5 l 0,-5 z');
+                mSegments[i].setAttribute('d', 'M 0,0 l 1000,50 l 0,-50 z');
 
                 mSegments[i].setAttribute('fill', 'url(#tunnel-wall-segment-fade-gradient)');
 
@@ -46,6 +47,7 @@ MG.tunnelWall = (function (rootNode) {
 
         update: function (dt) {
             mTheta = mTheta + dt * DTHETA;
+            mTheta %= 360;
         },
 
         updateDOM: function (x, y, offset) {
@@ -56,9 +58,9 @@ MG.tunnelWall = (function (rootNode) {
                 var x_ = -x * Math.cos(segmentTheta*Math.PI/180) + -y * Math.sin(segmentTheta*Math.PI/180);
                 var y_ = -x * Math.sin(segmentTheta*Math.PI/180) +  y * Math.cos(segmentTheta*Math.PI/180);
 
-                var scale_x_ = MG.PROJECTION_PLANE_DISTANCE * (1 - x_/MG.TUNNEL_RADIUS)
+                var scale_x_ = 0.1*MG.PROJECTION_PLANE_DISTANCE * (1 - x_/MG.TUNNEL_RADIUS)
                              / (Math.tan(Math.PI * MG.FIELD_OF_VIEW/360.0)*NEAR_CLIPPING_PLANE);
-                var scale_y_ = MG.PROJECTION_PLANE_DISTANCE
+                var scale_y_ = 0.1*MG.PROJECTION_PLANE_DISTANCE
                              / (Math.tan(Math.PI * MG.FIELD_OF_VIEW/360.0)*NEAR_CLIPPING_PLANE);
 
                 var skew = 180*Math.atan(y_/MG.TUNNEL_RADIUS)/Math.PI;

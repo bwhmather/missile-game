@@ -503,6 +503,8 @@
           L 53.03,53.03
           A 75,75 0 0,0  75,0
           z" />
+
+
 <!-- Collision Detection -->
     <line
        id="collision-line"
