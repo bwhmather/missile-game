@@ -1,58 +1,48 @@
 
-//MG.BarrierType = {
-//    RANDOM: 'random',
+MG.BarrierType = {
+    RANDOM: 'random',
 
-//    BARRIER_1: 1,
-//    BARRIER_2: 2,
-//    BARRIER_3: 3,
-//    BARRIER_4: 4,
-//    BARRIER_5: 5,
-//    BARRIER_6: 6,
+    BARRIER_1: 1,
+    BARRIER_2: 2,
+    BARRIER_3: 3,
+    BARRIER_4: 4,
+    BARRIER_5: 5,
+    BARRIER_6: 6,
 
-//    BLANK: 'blank',
-//    START: 'start',
-//    FINISH: 'finish'
-//};
-
-MG.RANDOM_BARRIER = 0;
-
-MG.BARRIER_1 = 1;
-MG.BARRIER_2 = 2;
-MG.BARRIER_3 = 3;
-MG.BARRIER_4 = 4;
-MG.BARRIER_5 = 5;
-MG.BARRIER_6 = 6;
-
-MG.BLANK_BARRIER = 7;
-MG.START_BARRIER = 8;
-MG.FINISH_BARRIER = 9;
+    BLANK: 'blank',
+    START: 'start',
+    FINISH: 'finish'
+};
 
 
 MG.NUM_RANDOM_BARRIERS = 6;
 
-MG.BARRIER_PATH_IDS = [
-        '',
-        'barrier-path-1',
-        'barrier-path-2',
-        'barrier-path-3',
-        'barrier-path-4',
-        'barrier-path-5',
-        'barrier-path-6',
-        'barrier-path-blank',
-        'barrier-path-blank',
-        'barrier-path-finish'];
+
+
+/* TODO find nicer way of initalising MG.BARRIER_PATH_IDS */
+MG.BARRIER_PATH_IDS = {}
+MG.BARRIER_PATH_IDS[MG.BarrierType.RANDOM] = '';
+MG.BARRIER_PATH_IDS[MG.BarrierType.BARRIER_1] = 'barrier-path-1';
+MG.BARRIER_PATH_IDS[MG.BarrierType.BARRIER_2] = 'barrier-path-2';
+MG.BARRIER_PATH_IDS[MG.BarrierType.BARRIER_3] = 'barrier-path-3';
+MG.BARRIER_PATH_IDS[MG.BarrierType.BARRIER_4] = 'barrier-path-4';
+MG.BARRIER_PATH_IDS[MG.BarrierType.BARRIER_5] = 'barrier-path-5';
+MG.BARRIER_PATH_IDS[MG.BarrierType.BARRIER_6] = 'barrier-path-6';
+MG.BARRIER_PATH_IDS[MG.BarrierType.BLANK] = 'barrier-path-blank';
+MG.BARRIER_PATH_IDS[MG.BarrierType.START] = 'barrier-path-blank';
+MG.BARRIER_PATH_IDS[MG.BarrierType.FINISH] = 'barrier-path-finish';
 
 
 MG.Barrier = function (type) {
-    if (type === undefined) {type = MG.RANDOM_BARRIER;}
+    if (type === undefined) {type = MG.BarrierType.RANDOM;}
 
     var mIsInitialised = false;
 
     var mTheta = 0.0;
     var mDTheta = 300.0*(0.5 - Math.random());
 
-    var mIsRandom = (type === MG.RANDOM_BARRIER);
-    var mType = (type === MG.RANDOM_BARRIER) ? Math.ceil(MG.NUM_RANDOM_BARRIERS*Math.random()) : type;
+    var mIsRandom = (type === MG.BarrierType.RANDOM);
+    var mType = (type === MG.BarrierType.RANDOM) ? Math.ceil(MG.NUM_RANDOM_BARRIERS*Math.random()) : type;
 
     var mRootNode;
     var mFrontPath;

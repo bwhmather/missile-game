@@ -107,7 +107,7 @@ MG.game = (function () {
         /* TODO should the start barrier be pushed here?
         If so, should all of the barriers for the entire level be pushed as well? */
         mRemainingBarriers = LEVEL_NUM_BARRIERS;
-        MG.barrierQueue.pushBarrier(MG.START_BARRIER);
+        MG.barrierQueue.pushBarrier(MG.BarrierType.START);
 
         mBarriersToPass = LEVEL_NUM_BARRIERS;
 
@@ -227,12 +227,12 @@ MG.game = (function () {
                         if (mState === GameState.RUNNING
                          || mState === GameState.STARTING) {
                             switch(barrier.getType()) {
-                              case MG.FINISH_BARRIER:
+                              case MG.BarrierType.FINISH:
                                 goFinish();
                                 break;
-                              case MG.BLANK_BARRIER:
+                              case MG.BarrierType.BLANK:
                                 break;
-                              case MG.START_BARRIER:
+                              case MG.BarrierType.START:
                                 mState = GameState.RUNNING;
                                 // FALLTHROUGH
                               default:
@@ -256,17 +256,17 @@ MG.game = (function () {
             /* Pad the barrier queue with blank barriers so that there are barriers
             as far as can be seen. */
             while (MG.barrierQueue.numBarriers() < MG.LINE_OF_SIGHT/MG.BARRIER_SPACING) {
-                var type = MG.BLANK_BARRIER;
+                var type = MG.BarrierType.BLANK;
     
                 if (mState === GameState.RUNNING
                  || mState === GameState.STARTING) {
                     mRemainingBarriers--;
                     if (mRemainingBarriers > 0) {
-                        type = MG.RANDOM_BARRIER;
+                        type = MG.BarrierType.RANDOM;
                     } else if (mRemainingBarriers === 0) {
-                        type = MG.FINISH_BARRIER;
+                        type = MG.BarrierType.FINISH;
                     } else {
-                        type = MG.BLANK_BARRIER;
+                        type = MG.BarrierType.BLANK;
                     }
                 }
     
