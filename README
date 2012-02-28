@@ -1,16 +1,15 @@
-
 This is a game I wrote mainly over the christmas of 2010 and have been slowly
-improving since.  Apart from to keep myself distracted, my main reason for
-doing it was the feeling that SVG was being a bit neglected with all the hype
-around the html canvas, webGL and css 3d transforms.  It's implemented in SVG
-and javascript all of images are excruciatingly hand typed.
+improving since.  Apart from keeping myself distracted, my main reason for
+doing it was that I felt SVG was being a bit neglected with all the hype
+surrounding the html canvas, webGL and css 3d transforms and that this was
+unjust.
 
 It is a close copy of the original flash game by Damien Clarke (which you can
 find at albinoblacksheep.com/games/missilegame3d) and all credit goes to him
 for the design.
 
 The aim is to fly a missile past a sequence of rotating barriers and avoid
-crashing for as long as possible as things speed up.
+crashing for as long as possible while everything speeds up.
 
 
 The kevlindev folder contains the majority of Kevin Lindsey's SVG geometry
@@ -36,8 +35,24 @@ ugly, when the same path data is used for collision detection,  reading it
 from what is in effect the screen is just plain nasty (as is my original plan
 of doing the collision detection on the 'screen').
 
-On the other hand it looks good it, it runs smoothly and it's fun! (in my not
-so humble opinion)
+On the other hand it looks good it, it runs smoothly on reasonable hardware
+and it's fun! (at least in my not so humble opinion)
+
+
+TODO:
+  * Add support for smartphones and tablets (fullscreen, touch, tilt sensors etc)
+    I would welome patches for this as I don't have access to either a smartphone
+    or tablet.
+
+  * Finish adding sound effects
+
+  * Add a menu with options for mouse sensitivity and phone/tablet related stuff
+
+  * Restructure to move data out of the DOM
+
+
+
+
 
 
 
