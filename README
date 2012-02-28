@@ -1,8 +1,43 @@
-This folder contains Kevin Lindsey's SVG geometry library with the addition of a little bit of slightly gnarly hacking to get elliptical arc support.
-The code for converting from elliptical arcs to cubic beziers comes from the raphael project (again considerably modified).
-Any bugs in the path routines are probably a result of my hastiness and not the fault of the original author.
 
-All modifications are constrained to AbsoluteArcToPathSegment.js and Path.js and should be clearly marked.
+This is a game I wrote mainly over the christmas of 2010 and have been slowly
+improving since.  Apart from to keep myself distracted, my main reason for
+doing it was the feeling that SVG was being a bit neglected with all the hype
+around the html canvas, webGL and css 3d transforms.  It's implemented in SVG
+and javascript all of images are excruciatingly hand typed.
+
+It is a close copy of the original flash game by Damien Clarke (which you can
+find at albinoblacksheep.com/games/missilegame3d) and all credit goes to him
+for the design.
+
+The aim is to fly a missile past a sequence of rotating barriers and avoid
+crashing for as long as possible as things speed up.
 
 
-The library is needed to work around the lack of a working implementation of checkIntersection() in webkit;  at some point it should be possible to use the built in method.
+The kevlindev folder contains the majority of Kevin Lindsey's SVG geometry
+library with the addition of a little bit of slightly gnarly copy paste hacking
+to get elliptical arc support by first converting to arcs to splines.  Any bugs
+in the path routines are probably a result of my hastiness and not the fault of
+the original author.  All modifications are constrained to
+AbsoluteArcToPathSegment.js and Path.js and should be clearly marked in the
+source.  The library is needed for collision detection to get around the lack
+of a proper implementation of the checkIntersection() method in any browsers
+other than opera at the time of writing.  When support improves it would be
+nice to go back and remove this dependency but at the moment there is little
+point.
+
+
+In retrospect it is probably far too DOM focused (I really wanted to make a
+proper _SVG_ game and doing so took priority over designing stuff sensibly).
+The code for rendering uses very little abstraction (most of it is quite
+simple so very little is really needed.  Something like raphael would
+probably be overkill and sort of misses the fun).  More importantly keeping
+the path data in the DOM and copying it to draw stuff turns out to be quite
+ugly, when the same path data is used for collision detection,  reading it
+from what is in effect the screen is just plain nasty (as is my original plan
+of doing the collision detection on the 'screen').
+
+On the other hand it looks good it, it runs smoothly and it's fun! (in my not
+so humble opinion)
+
+
+
