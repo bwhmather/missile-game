@@ -76,16 +76,25 @@ MG.game = (function () {
     }
 
     var playCrashAnimation = function () {
-//        var explosionProto = document.getElementById('explosion');
-//        var explosion = explosionProto.cloneNode(true);
-//        var animation = explosion.firstChild;
-//        animation.endElementAt(3);
-//        animation.beginElementAt(0);
-////        explosion.firstChild.beginElement();
-//        setTimeout(function (){rootNode.removeChild(explosion);}, 3000);
+        // TODO move drawing out of the update loop
+        MG.util.suspendRedraw();
 
-//        var rootNode = document.getElementById('tunnel');
-//        rootNode.appendChild(explosion);
+        // create a copy of the explosion element
+        var explosion = document.getElementById('explosion');
+
+        // play the animation
+        explosion.firstChild.beginElement();
+        explosion.setAttribute('visibility', 'visible');
+
+        // TODO can't seem to get a callback to fire when the animation
+        // finishes. Use timeout instead
+        setTimeout(function (){
+            var explosion = document.getElementById('explosion');
+            explosion.setAttribute('visibility', 'hidden');
+        }, 400);
+
+        MG.util.unsuspendRedraw();
+
     }
 
     var goWaitStartLevel = function () {
@@ -187,8 +196,6 @@ MG.game = (function () {
             goWaitStartLevel();
 
             rootNode.setAttribute('visibility', 'visible');
-
-            setTimeout(playCrashAnimation, 1500);
         },
 
 
