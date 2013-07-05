@@ -35,30 +35,3 @@ MG.util.showMouse = function () {
         }
     }
 };
-
-/**
- * Temporarily removes a node from the DOM so that it can be edited before be
- * edited out of place.
- * This is useful for ensuring changes propogate to the screen and reportedly
- * improves performance in Firefox (though I haven't been able to test properly)
- * Tasks should avoid modifying nodes that are not descendants of the node that
- * has been removed, as doing so could prevent the removed node from being
- * reinserted properly
- */
-MG.util.removeEditInsert = function (node, task) {
-    /* Reomve the node */
-    var nextSibling = node.nextSibling ;
-    var parent = node.parentNode;
-    parent.removeChild(node);
-
-    /* Perform the task */
-    task()
-
-    /* Reinsert the node in the same place as before */
-    if (nextSibling === null) {
-        parent.appendChild(node);
-    } else {
-        parent.insertBefore(node, nextSibling);
-    }
-}
-

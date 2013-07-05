@@ -62,16 +62,12 @@ MG.banner = (function () {
         },
 
         updateDOM: function () {
-
-
-            MG.util.removeEditInsert (mRootNode, function (rootNode) {
-                if (mVisibility === 0) {
-                    mRootNode.setAttribute('visibility', 'hidden');
-                } else {
-                    mRootNode.setAttribute('width', (30 + 80*(0.5 + 0.5*Math.cos(Math.PI*mVisibility))) + '%');
-                    mRootNode.setAttribute('visibility', 'visible');
-                }
-            });
+            if (mVisibility === 0) {
+                mRootNode.setAttribute('visibility', 'hidden');
+            } else {
+                mRootNode.setAttribute('width', (30 + 80*(0.5 + 0.5*Math.cos(Math.PI*mVisibility))) + '%');
+                mRootNode.setAttribute('visibility', 'visible');
+            }
         },
 
 

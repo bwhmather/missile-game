@@ -303,15 +303,11 @@ MG.game = (function () {
         },
 
         updateDOM: function () {
-            var rootNode = document.getElementById('tunnel');
+            var position = MG.missile.getPosition();
+            var offset = MG.missile.getOffset();
 
-            MG.util.removeEditInsert(rootNode, function () {
-                var position = MG.missile.getPosition();
-                var offset = MG.missile.getOffset();
-
-                MG.barrierQueue.updateDOM(-position.x, -position.y, offset);
-                MG.tunnelWall.updateDOM(-position.x, -position.y, offset);
-            }) ;
+            MG.barrierQueue.updateDOM(-position.x, -position.y, offset);
+            MG.tunnelWall.updateDOM(-position.x, -position.y, offset);
         },
 
         onMouseMove: function (x, y) {

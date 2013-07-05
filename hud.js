@@ -206,14 +206,12 @@ MG.hud = (function () {
         },
 
         updateDOM: function () {
-            MG.util.removeEditInsert(mRootNode, function () {
-                mRadar.updateDOM();
-                mSpeedometer.updateDOM();
-                mLevelIndicator.updateDOM();
-                mProgressIndicator.updateDOM();
-                mLifeCounter.updateDOM();
-                mFrameRateIndicator.updateDOM();
-            });
+            mRadar.updateDOM();
+            mSpeedometer.updateDOM();
+            mLevelIndicator.updateDOM();
+            mProgressIndicator.updateDOM();
+            mLifeCounter.updateDOM();
+            mFrameRateIndicator.updateDOM();
         }
     };
 }());
