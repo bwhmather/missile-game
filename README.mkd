@@ -49,15 +49,14 @@ TODO:
     I would welome patches for this as I don't have access to either a smartphone
     or tablet.
 
+  * Save high scores in browser local storage
+
+  * Make GUI more consistant
+
   * Finish adding sound effects
 
   * Add a menu with options for mouse sensitivity and phone/tablet related stuff
 
   * Restructure to move data out of the DOM
-
-
-
-
-
 
 
