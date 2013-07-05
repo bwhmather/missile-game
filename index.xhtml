@@ -1,11 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="Content-type" content="text/xhtml+xml;charset=UTF-8" />
+
   <title>Missile Game</title>
-  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="author" content="Ben Mather &lt;bwhmather@bwhmather.com&gt;" />
+
+  <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
    
   <!--== CSS ==============================================================-->
-  <style>
+  <style type="text/css">
     /* <![CDATA[ */
     .barrier path {
       stroke-width: 2;
@@ -34,7 +40,7 @@
 
     /* ]]> */
   </style>
-  <style title="style-hide-mouse">
+  <style title="style-hide-mouse" type="text/css">
     /* <![CDATA[ */
     * {cursor:none}
     /* ]]> */
@@ -47,7 +53,7 @@
      xmlns="http://www.w3.org/2000/svg"
      xmlns:svg="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink"
-     width="100%" height="100%">
+     style="position: fixed; width: 100%; height: 100%; margin: 0;">
    
  
   <!--== TUNNEL ===============================================================-->
@@ -190,13 +196,13 @@
                class="hud-background"
                cx="0.5"
                cy="0.5"
-               r="0.5"/>
+               r="0.5" />
             <circle id="hud-radar-scope-missile-target"
                clip-path="url(#hud-radar-scope-clip-path)"
                fill="#777777"
                stroke="none"
                r="0.04"
-                cx="0.5" cy="0.5"/>
+                cx="0.5" cy="0.5" />
             <circle
                id="hud-radar-scope-missile"
                clip-path="url(#hud-radar-scope-clip-path)"
@@ -208,13 +214,13 @@
                stroke-width="0.04"
                cx="0.5"
                cy="0.5"
-               r="0.5"/>
+               r="0.5" />
             <clipPath
                id="hud-radar-scope-clip-path" >
               <circle
                  cx="0.5"
                  cy="0.5"
-                 r="0.5"/>
+                 r="0.5" />
             </clipPath>
           </g>
         <!-- Speedometer-->
@@ -243,7 +249,7 @@
               <clipPath id="hud-speedometer-bar-clip-path">
                 <rect
                    width="0.5"
-                   height="0.122"/>
+                   height="0.122" />
               </clipPath>
             </g>
   
@@ -251,7 +257,7 @@
                transform="translate(1.2, 0.4), scale(0.012,-0.012)">SPEED</text>
   
             <text id="hud-speedometer-speed-text"
-               transform="translate(3, 0.1), scale(0.02,-0.02)"/>
+               transform="translate(3, 0.1), scale(0.02,-0.02)" />
   
             <clipPath
                id="speedometer-clip-path" >
@@ -275,7 +281,7 @@
                       L -0.2, -0.07
                       L  0.0,  0.6
                       L  0.2, -0.07
-                      L  0.07, 0.01"/>
+                      L  0.07, 0.01" />
                 <path
                    fill="white"
                    stroke="black"
@@ -289,30 +295,30 @@
             <use id="hud-lives-indicator-missile-1"
                transform="translate(0.6,1.4)"
                visibility="hidden"
-               xlink:href="#hud-lives-indicator-missile"/>
+               xlink:href="#hud-lives-indicator-missile" />
             <use id="hud-lives-indicator-missile-2"
                transform="translate(0.6,1.7)"
                visibility="hidden"
-               xlink:href="#hud-lives-indicator-missile"/>
+               xlink:href="#hud-lives-indicator-missile" />
             <use id="hud-lives-indicator-missile-3"
                transform="translate(0.6,2.0)"
                visibility="hidden"
-               xlink:href="#hud-lives-indicator-missile"/>
+               xlink:href="#hud-lives-indicator-missile" />
             <use id="hud-lives-indicator-missile-4"
                transform="translate(0.6,2.3)"
                visibility="hidden"
-               xlink:href="#hud-lives-indicator-missile"/>
+               xlink:href="#hud-lives-indicator-missile" />
             <use id="hud-lives-indicator-missile-5"
                transform="translate(0.6,2.6)"
                visibility="hidden"
-               xlink:href="#hud-lives-indicator-missile"/>
+               xlink:href="#hud-lives-indicator-missile" />
   
             <g id="hud-lives-indicator-infinite"
                  visibility="hidden"
                  transform="translate(0.5,1.5)">
               <use
                  transform="translate(0.3,0.15), scale(1.4,1.4)"
-                 xlink:href="#hud-lives-indicator-missile"/>
+                 xlink:href="#hud-lives-indicator-missile" />
               <path
                  stroke="white"
                  stroke-width="0.02"
@@ -323,7 +329,7 @@
                     M  0.035, 0.0
                     C  0.43,-0.4  0.43, 0.4  0.035, 0.0
                     M  -0.035, 0.0
-                    C  -0.43, 0.4 -0.43,-0.4 -0.035, 0.0"/>
+                    C  -0.43, 0.4 -0.43,-0.4 -0.035, 0.0" />
             </g>
   
             <g id="hud-lives-indicator-none"
@@ -331,7 +337,7 @@
                  transform="translate(0.5,1.5)">
               <use
                  transform="translate(0.3,0.15), scale(1.4,1.4)"
-                 xlink:href="#hud-lives-indicator-missile"/>
+                 xlink:href="#hud-lives-indicator-missile" />
               <path
                  transform="scale(0.8,0.8)"
                  stroke="white"
@@ -348,7 +354,7 @@
                     z
                     M  -0.26,0.20
                     A  0.328,0.328, 0 0,1 0.20,-0.26
-                    z"/>
+                    z" />
             </g>
   
   
@@ -357,12 +363,12 @@
   
       <!-- Level Indicator ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <text id="hud-level-indicator"
-           transform="translate(0.035, 0.035), scale(0.0025,0.0025)"/>
+           transform="translate(0.035, 0.035), scale(0.0025,0.0025)" />
   
       <!-- Frame Rate Indicator ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <text id="hud-frame-rate-indicator"
            transform="translate(0.035, 0.08), scale(0.0025,0.0025)"
-           fill="#333333"/>
+           fill="#333333" />
   
       </svg>
   
@@ -394,7 +400,7 @@
                x="-0.01"
                width="0.04"
                height="0.008"
-               fill="#777777"/>
+               fill="#777777" />
             <text
                fill="#777777"
                transform="translate(-0.04,-0.002), scale(0.001,-0.001)">PB</text>
@@ -406,7 +412,7 @@
                x="-0.01"
                width="0.04"
                height="0.008"
-               fill="#333333"/>
+               fill="#333333" />
           </g>
   
           <path
@@ -415,7 +421,7 @@
              d="m 0, 1.005
                 L 0.03, 1.005
                   0.03, 0
-                  0, 0"/>
+                  0, 0" />
         </g>
       </svg>
     </g>
@@ -627,20 +633,21 @@
   <!--== SCRIPTS ==============================================================-->
   
   <!-- Kevin Lindsey's 2d geometry SVG library -->
-  <script src="lib/kevlindev/2D.js"></script>
-  <script src="lib/kevlindev/Path.js"></script>
+  <script type="application/javascript" src="lib/kevlindev/2D.js"></script>
+  <script type="application/javascript" src="lib/kevlindev/Path.js"></script>
   
   <!-- Game files -->
-  <script src="src/base.js"></script>
-  <script src="src/util.js"></script>
-  <script src="src/missile.js"></script>
-  <script src="src/wall.js"></script>
-  <script src="src/barrier.js"></script>
-  <script src="src/barrierQueue.js"></script>
-  <script src="src/game.js"></script>
-  <script src="src/hud.js"></script>
-  <script src="src/banner.js"></script>
-  <script src="src/fog.js"></script>
-  <script src="src/main.js"></script>
+  <script type="application/javascript" src="src/base.js"></script>
+  <script type="application/javascript" src="src/util.js"></script>
+  <script type="application/javascript" src="src/missile.js"></script>
+  <script type="application/javascript" src="src/wall.js"></script>
+  <script type="application/javascript" src="src/barrier.js"></script>
+  <script type="application/javascript" src="src/barrierQueue.js"></script>
+  <script type="application/javascript" src="src/game.js"></script>
+  <script type="application/javascript" src="src/hud.js"></script>
+  <script type="application/javascript" src="src/banner.js"></script>
+  <script type="application/javascript" src="src/fog.js"></script>
+  <script type="application/javascript" src="src/main.js"></script>
  
 </body>
+</html>
