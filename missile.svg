@@ -55,21 +55,21 @@
 <!--== SCRIPTS ==============================================================-->
 
 <!-- Kevin Lindsey's 2d geometry SVG library -->
-  <script xlink:href="kevlindev/2D.js" />
-  <script xlink:href="kevlindev/Path.js" />
+  <script xlink:href="lib/kevlindev/2D.js" />
+  <script xlink:href="lib/kevlindev/Path.js" />
 
 <!-- Game files -->
-  <script xlink:href="base.js" />
-  <script xlink:href="util.js" />
-  <script xlink:href="missile.js" />
-  <script xlink:href="wall.js" />
-  <script xlink:href="barrier.js" />
-  <script xlink:href="barrierQueue.js" />
-  <script xlink:href="game.js" />
-  <script xlink:href="hud.js" />
-  <script xlink:href="banner.js" />
-  <script xlink:href="fog.js" />
-  <script xlink:href="main.js" />
+  <script xlink:href="src/base.js" />
+  <script xlink:href="src/util.js" />
+  <script xlink:href="src/missile.js" />
+  <script xlink:href="src/wall.js" />
+  <script xlink:href="src/barrier.js" />
+  <script xlink:href="src/barrierQueue.js" />
+  <script xlink:href="src/game.js" />
+  <script xlink:href="src/hud.js" />
+  <script xlink:href="src/banner.js" />
+  <script xlink:href="src/fog.js" />
+  <script xlink:href="src/main.js" />
 
 <!--== TUNNEL ===============================================================-->
   <svg id="tunnel"
