@@ -1,13 +1,8 @@
-
 MG.init = function () {
-    MG.util.suspendRedraw();
-
     MG.fog.init();
     MG.banner.init();
     MG.game.init();
     MG.hud.init();
-
-    MG.util.unsuspendRedraw();
 
     setInterval(update, 1000/60);
 
@@ -30,15 +25,10 @@ MG.init = function () {
         MG.banner.update(dt);
 
 
-        MG.util.suspendRedraw();
-
         MG.fog.updateDOM();
         MG.game.updateDOM();
         MG.hud.updateDOM();
         MG.banner.updateDOM();
-
-        MG.util.unsuspendRedraw();
     }
-
 }
 

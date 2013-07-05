@@ -4,16 +4,6 @@
 
 MG.util = {} ;
 
-MG.util.suspendRedraw = function () {
-    document.documentElement.suspendRedraw(0);
-};
-
-
-MG.util.unsuspendRedraw = function () {
-    document.documentElement.unsuspendRedraw(0);
-};
-
-
 MG.util.hideMouse = function () {
     var i;
     for (i=0; i<document.styleSheets.length; i++) {

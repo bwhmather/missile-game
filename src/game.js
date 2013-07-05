@@ -77,7 +77,6 @@ MG.game = (function () {
 
     var playCrashAnimation = function () {
         // TODO move drawing out of the update loop
-        MG.util.suspendRedraw();
 
         // create a copy of the explosion element
         var explosion = document.getElementById('explosion');
@@ -92,9 +91,6 @@ MG.game = (function () {
             var explosion = document.getElementById('explosion');
             explosion.setAttribute('visibility', 'hidden');
         }, 400);
-
-        MG.util.unsuspendRedraw();
-
     }
 
     var goWaitStartLevel = function () {
