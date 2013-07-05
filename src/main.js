@@ -32,3 +32,4 @@ MG.init = function () {
     }
 }
 
+MG.init();
