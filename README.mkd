@@ -8,7 +8,7 @@ surrounding the html canvas, webGL and css 3d transforms and that this was
 unjust.
 
 It is a close copy of the original flash game by Damien Clarke (which you can
-find at albinoblacksheep.com/games/missilegame3d) and all credit goes to him
+find at [http://albinoblacksheep.com/games/missilegame3d]()) and all credit goes to him
 for the design.
 
 The aim is to fly a missile past a sequence of rotating barriers and avoid
@@ -17,13 +17,14 @@ crashing for as long as possible while everything speeds up.
 
 The kevlindev folder contains the majority of Kevin Lindsey's SVG geometry
 library with the addition of a little bit of slightly gnarly copy paste hacking
-to get elliptical arc support by first converting to arcs to splines.  Any bugs
+to get elliptical arc support by converting to arcs to splines.  Any bugs
 in the path routines are probably a result of my hastiness and not the fault of
 the original author.  All modifications are constrained to
-AbsoluteArcToPathSegment.js and Path.js and should be clearly marked in the
+[AbsoluteArcToPathSegment.js](./kevlindev/AbsoluteArcToPathSegment.js) and
+[Path.js](./kevlindev/Path.js) and should be clearly marked in the
 source.  The library is needed for collision detection to get around the lack
 of a proper implementation of the checkIntersection() method in any browsers
-other than opera at the time of writing.  When support improves it would be
+other than opera (at the time of writing).  When support improves it would be
 nice to go back and remove this dependency but at the moment there is little
 point.
 
