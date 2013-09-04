@@ -28,6 +28,12 @@ MG.init = function () {
     var mainLoop = function(thisTick) {
         thisTick = thisTick || 0;
         var dt = (thisTick - lastTick)/1000;
+        // pretend that the frame rate is actually higher if it drops below
+        // 10fps in order to avoid wierdness
+        if (dt > 1/10) {
+            dt = 1/10;
+        }
+
         lastTick = thisTick;
 
         update(dt);
