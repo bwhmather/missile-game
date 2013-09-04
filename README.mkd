@@ -1,5 +1,5 @@
-Missile Game
-============
+[Missile Game](http://bwhmather.com/missile-game/)
+====================================
 
 This is a game I wrote mainly over the christmas of 2010 and have been slowly
 improving since.  Apart from keeping myself distracted, my main reason for
@@ -20,8 +20,8 @@ library with the addition of a little bit of slightly gnarly copy paste hacking
 to get elliptical arc support by converting to arcs to splines.  Any bugs
 in the path routines are probably a result of my hastiness and not the fault of
 the original author.  All modifications are constrained to
-[AbsoluteArcToPathSegment.js](./kevlindev/AbsoluteArcToPathSegment.js) and
-[Path.js](./kevlindev/Path.js) and should be clearly marked in the
+[AbsoluteArcToPathSegment.js](https://github.com/bwhmather/missile-game/blob/master/lib/kevlindev/AbsoluteArcToPathSegment.js) and
+[Path.js](https://github.com/bwhmather/missile-game/blob/master/lib/kevlindev/Path.js) and should be clearly marked in the
 source.  The library is needed for collision detection to get around the lack
 of a proper implementation of the checkIntersection() method in any browsers
 other than opera (at the time of writing).  When support improves it would be
