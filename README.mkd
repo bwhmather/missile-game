@@ -1,4 +1,4 @@
-[Missile Game](http://bwhmather.com/missile-game/)
+[Missile Game](http://missile-game.bwhmather.com)
 ====================================
 
 This is a game I wrote mainly over the christmas of 2010 and have been slowly
