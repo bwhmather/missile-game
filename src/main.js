@@ -4,21 +4,15 @@ MG.init = function () {
     MG.game.init();
     MG.hud.init();
 
-    setInterval(update, 1000/60);
-
     document.addEventListener('mousemove', function(evt){
             MG.game.onMouseMove(evt.clientX, evt.clientY);
         }, false);
 
     window.addEventListener('mousedown', MG.game.onMouseClick, false);
 
-    var lastTick = new Date().getTime();
+    var lastTick = 0;
 
-    function update () {
-        var thisTick = new Date().getTime();
-        var dt = (thisTick - lastTick)/1000;
-        lastTick = thisTick;
-
+    var update = function (dt) {
         MG.fog.update(dt);
         MG.game.update(dt);
         MG.hud.update(dt);
@@ -30,6 +24,18 @@ MG.init = function () {
         MG.hud.updateDOM();
         MG.banner.updateDOM();
     }
+
+    var mainLoop = function(thisTick) {
+        thisTick = thisTick || 0;
+        var dt = (thisTick - lastTick)/1000;
+        lastTick = thisTick;
+
+        update(dt);
+
+        window.requestAnimationFrame(mainLoop);
+    }
+
+    mainLoop();
 }
 
 MG.init();

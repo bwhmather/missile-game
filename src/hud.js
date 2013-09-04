@@ -175,6 +175,10 @@ MG.hud = (function () {
 
                 return {
                     update: function (dt) {
+                        if (dt === 0) {
+                            return;
+                        }
+
                         if (mFrameRate <= 0) {
                             /* Assume game has just started and use first time
                             step as an initial guess for the frame rate */
