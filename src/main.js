@@ -10,8 +10,6 @@ MG.init = function () {
 
     window.addEventListener('mousedown', MG.game.onMouseClick, false);
 
-    var lastTick = 0;
-
     var update = function (dt) {
         MG.fog.update(dt);
         MG.game.update(dt);
@@ -25,9 +23,34 @@ MG.init = function () {
         MG.banner.updateDOM();
     }
 
+    var lastTick = 0;
+    var zeroCounter = 0;
+    var useFallback = false;
+
+    if (!window.requestAnimationFrame) {
+        useFallback = true;
+    }
+
     var mainLoop = function(thisTick) {
+        var dt;
+
+        // Some browsers don't pass in a time.  If `thisTick` isn't set for
+        //  more than a few frames fall back to `setTimeout`
+        if (!thisTick) {
+            zeroCounter += 1;
+        } else {
+            zeroCounter = 0;
+        }
+        if (zeroCounter > 10) {
+            useFallback = true;
+        }
+
         thisTick = thisTick || 0;
-        var dt = (thisTick - lastTick)/1000;
+        if (useFallback) {
+            dt = 1/30;
+        } else {
+            var dt = (thisTick - lastTick)/1000;
+        }
         // pretend that the frame rate is actually higher if it drops below
         // 10fps in order to avoid wierdness
         if (dt > 1/10) {
@@ -38,7 +61,11 @@ MG.init = function () {
 
         update(dt);
 
-        window.requestAnimationFrame(mainLoop);
+        if (useFallback) {
+            window.setTimeout(mainLoop, 1000 / 30);
+        } else {
+            window.requestAnimationFrame(mainLoop);
+        }
     }
 
     mainLoop();
