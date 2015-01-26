@@ -1,62 +1,30 @@
 [Missile Game](http://missile-game.bwhmather.com)
 ====================================
 
-This is a game I wrote mainly over the christmas of 2010 and have been slowly
-improving since.  Apart from keeping myself distracted, my main reason for
-doing it was that I felt SVG was being a bit neglected with all the hype
-surrounding the html canvas, webGL and css 3d transforms and that this was
-unjust.
-
-It is a close copy of the original flash game by Damien Clarke (which you can
-find at [http://albinoblacksheep.com/games/missilegame3d]()) and all credit goes to him
-for the design.
-
-The aim is to fly a missile past a sequence of rotating barriers and avoid
+Full rewrite of the original flash game by Damien Clarke (which you can
+find at [http://albinoblacksheep.com/games/missilegame3d]()) using SVG and
+javascript.  The aim is to fly a missile past a sequence of rotating barriers and avoid
 crashing for as long as possible while everything speeds up.
 
+Mostly written over christmas in 2010 when I was learning javascript.  I felt SVG was being
+a bit neglected with all the hype surrounding canvas, WebGL and 3d CSS and that
+this was unjust.
 
-The kevlindev folder contains the majority of Kevin Lindsey's SVG geometry
-library with the addition of a little bit of slightly gnarly copy paste hacking
-to get elliptical arc support by converting to arcs to splines.  Any bugs
-in the path routines are probably a result of my hastiness and not the fault of
-the original author.  All modifications are constrained to
-[AbsoluteArcToPathSegment.js](https://github.com/bwhmather/missile-game/blob/master/lib/kevlindev/AbsoluteArcToPathSegment.js) and
-[Path.js](https://github.com/bwhmather/missile-game/blob/master/lib/kevlindev/Path.js) and should be clearly marked in the
-source.  The library is needed for collision detection to get around the lack
-of a proper implementation of the checkIntersection() method in any browsers
-other than opera (at the time of writing).  When support improves it would be
-nice to go back and remove this dependency but at the moment there is little
-point.
-
-
-In retrospect it is probably far too DOM focused (I really wanted to make a
-proper _SVG_ game and doing so took priority over designing stuff sensibly).
-The code for rendering uses very little abstraction (most of it is quite
-simple so very little is really needed.  Something like raphael would
-probably be overkill and sort of misses the fun).  More importantly keeping
-the path data in the DOM and copying it to draw stuff turns out to be quite
-ugly, when the same path data is used for collision detection,  reading it
-from what is in effect the screen is just plain nasty (as is my original plan
-of doing the collision detection on the 'screen').
-
-On the other hand it looks good it, it runs smoothly on reasonable hardware
-and it's fun! (at least in my not so humble opinion)
+Makes use of Kevin Lindsey's SVG geometry library, modified slightly to support
+elliptical arcs, for finding collisions.  My original plan was to use the
+browser `checkIntersection()` built-in but it didn't work properly in any
+browsers.  Currently I would prefer to go the other way and avoid using any of
+the rendering state in game logic.
 
 
 TODO:
 ----
   * Add support for smartphones and tablets (fullscreen, touch, tilt sensors etc)
-    I would welome patches for this as I don't have access to either a smartphone
-    or tablet.
 
-  * Save high scores in browser local storage
-
-  * Make GUI more consistant
+  * Make GUI more consistent
 
   * Finish adding sound effects
 
   * Add a menu with options for mouse sensitivity and phone/tablet related stuff
 
-  * Restructure to move data out of the DOM
-
-
+  * Remove references to the DOM from game state and make rendering pluggabl.
