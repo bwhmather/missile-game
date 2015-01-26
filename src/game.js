@@ -25,6 +25,11 @@ MG.game = (function () {
     var mProgress = 0.0;
     var mBestProgress = 0.0;
 
+    var NUM_WOOSH_INSTANCES = 3;
+    var mWoosh = [];
+    var mLastWoosh = 0;
+    var mWooshPlaying = false;
+
     /* Strings for UI ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     var getLevelString = function () {
         return mLevel ? 'LEVEL ' + mLevel : 'QUALIFYING LEVEL';
@@ -174,6 +179,12 @@ MG.game = (function () {
 
             //
 
+            for (var i=0; i<NUM_WOOSH_INSTANCES; i++) {
+                mWoosh[i] = new Audio("woosh2.mp3");
+            }
+
+            //
+
             goWaitStartLevel();
 
             rootNode.setAttribute('visibility', 'visible');
@@ -184,6 +195,16 @@ MG.game = (function () {
             MG.missile.update(dt);    
             MG.tunnelWall.update(dt);
             MG.barrierQueue.update(dt);    
+            if (MG.missile.getOffset()/MG.missile.getVelocity() < 0.8 && mWooshPlaying === false && mState !== GameState.CRASHED) {
+                mWooshPlaying = true;
+                var woosh = document.getElementById('woosh-sound').cloneNode(true);
+                woosh.setAttribute('autoplay', 'autoplay');
+                mLastWoosh++;
+                mLastWoosh = mLastWoosh == NUM_WOOSH_INSTANCES ? 0 : mLastWoosh;
+
+                mWoosh[mLastWoosh].play();
+            }
+
 
             /* check whether the nearest barrier has been reached and whether the missile collides with it. */
             if (!MG.barrierQueue.isEmpty()) {
@@ -199,6 +220,8 @@ MG.game = (function () {
                         // BARRIER PASSED
                         MG.barrierQueue.popBarrier();
                         MG.missile.onBarrierPassed();
+
+                        mWooshPlaying = false;
 
                         // TODO this block makes loads of assumptions about state
                         if (mState === GameState.RUNNING
