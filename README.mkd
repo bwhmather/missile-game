@@ -7,8 +7,7 @@ javascript.  The aim is to fly a missile past a sequence of rotating barriers an
 crashing for as long as possible while everything speeds up.
 
 Mostly written over christmas in 2010 when I was learning javascript.  I felt SVG was being
-a bit neglected with all the hype surrounding canvas, WebGL and 3d CSS and that
-this was unjust.
+unfairly neglected with all the hype surrounding canvas, WebGL and 3d CSS.
 
 Makes use of Kevin Lindsey's SVG geometry library, modified slightly to support
 elliptical arcs, for finding collisions.  My original plan was to use the
