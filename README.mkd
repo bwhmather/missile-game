@@ -14,16 +14,3 @@ elliptical arcs, for finding collisions.  My original plan was to use the
 browser `checkIntersection()` built-in but it didn't work properly in any
 browsers.  Currently I would prefer to go the other way and avoid using any of
 the rendering state in game logic.
-
-
-TODO:
-----
-  * Add support for smartphones and tablets (fullscreen, touch, tilt sensors etc)
-
-  * Make GUI more consistent
-
-  * Finish adding sound effects
-
-  * Add a menu with options for mouse sensitivity and phone/tablet related stuff
-
-  * Remove references to the DOM from game state and make rendering pluggabl.
