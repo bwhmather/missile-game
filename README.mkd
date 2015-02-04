@@ -2,7 +2,7 @@
 ====================================
 
 Full rewrite of the original flash game by Damien Clarke (which you can
-find at [http://albinoblacksheep.com/games/missilegame3d]()) using SVG and
+find at [http://albinoblacksheep.com/games/missilegame3d](http://albinoblacksheep.com/games/missilegame3d)) using SVG and
 javascript.  The aim is to fly a missile past a sequence of rotating barriers and avoid
 crashing for as long as possible while everything speeds up.
 
