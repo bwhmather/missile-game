@@ -14,3 +14,5 @@ elliptical arcs, for finding collisions.  My original plan was to use the
 browser `checkIntersection()` built-in but it didn't work properly in any
 browsers.  Currently I would prefer to go the other way and avoid using any of
 the rendering state in game logic.
+
+With the exception of the lib folder, this software is distributed under the terms of the GNU Affero Public License.  See LICENSE for details.
