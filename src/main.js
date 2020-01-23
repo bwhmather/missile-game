@@ -7,8 +7,12 @@ MG.init = function () {
     document.addEventListener('mousemove', function(evt){
             MG.game.onMouseMove(evt.clientX, evt.clientY);
         }, false);
+    document.addEventListener('touchmove', function(evt){
+            MG.game.onMouseMove(evt.clientX || evt.touches[0].clientX, evt.clientY || evt.touches[0].clientY);
+        }, false);
 
     window.addEventListener('mousedown', MG.game.onMouseClick, false);
+    window.addEventListener('touchstart', MG.game.onMouseClick, false);
 
     var update = function (dt) {
         MG.fog.update(dt);
