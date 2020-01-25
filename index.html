@@ -40,6 +40,34 @@
 
     * {cursor:crosshair}
 
+    #fullscreen {
+      border: 3px solid black;
+      border-top: none;
+      background: white;
+      padding: 5px;
+
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+
+      top: 0px;
+      transition-property: top;
+      transition-duration: 1s;
+    }
+
+    :fullscreen > #fullscreen {
+      top: -120%;
+    }
+
+    #fullscreen button {
+      border: none;
+      background: none;
+
+      color: red;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
     /* ]]> */
   </style>
   <style title="style-hide-mouse" type="text/css">
@@ -55,7 +83,7 @@
      xmlns="http://www.w3.org/2000/svg"
      xmlns:svg="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink"
-     style="position: fixed; width: 100%; height: 100%; margin: 0;">
+     style="position: fixed; width: 100%; height: 100%; margin: 0; background: white">
    
  
   <!--== TUNNEL ===============================================================-->
@@ -631,6 +659,13 @@
     </defs>
   </svg>
 
+  <div id="fullscreen">
+    <button onclick="
+      document.body.requestFullscreen();
+      event.stopPropagation();
+      event.preventDefault();
+    ">ENTER FULLSCREEN</button>
+  </div>
 
   <!--== SCRIPTS ==============================================================-->
   
